@@ -28,7 +28,7 @@ public class WizardsOdometryCalibration extends LinearOpMode {
     //IMU Sensor
     BNO055IMU imu;
 
-    //Hardware Map Names for drive motors and odometry wheels. THIS WILL CHANGE ON EACH ROBOT, YOU NEED TO UPDATE THESE VALUES ACCORDINGLY
+    //Hardware Map Names for drive motors and odometry wheels. THIS WILL CHAminsGE ON EACH ROBOT, YOU NEED TO UPDATE THESE VALUES ACCORDINGLY
     String rfName = "rightFront", rbName = "rightBack", lfName = "leftFront", lbName = "leftBack";
     String verticalLeftEncoderName = "leftPod", verticalRightEncoderName = "rightPod", horizontalEncoderName = "horizontalPod";
 
@@ -52,7 +52,7 @@ public class WizardsOdometryCalibration extends LinearOpMode {
 
         //Initialize IMU hardware map value. PLEASE UPDATE THIS VALUE TO MATCH YOUR CONFIGURATION
         imu = hardwareMap.get(BNO055IMU.class, "imu");
-
+        //"imu" should be on I2C port 0 address 0
         //Initialize IMU parameters
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
