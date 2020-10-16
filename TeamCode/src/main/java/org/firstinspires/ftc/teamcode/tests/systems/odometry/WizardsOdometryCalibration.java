@@ -30,7 +30,7 @@ public class WizardsOdometryCalibration extends LinearOpMode {
 
     //Hardware Map Names for drive motors and odometry wheels. THIS WILL CHAminsGE ON EACH ROBOT, YOU NEED TO UPDATE THESE VALUES ACCORDINGLY
     String rfName = "rightFront", rbName = "rightBack", lfName = "leftFront", lbName = "leftBack";
-    String verticalLeftEncoderName = "leftPod", verticalRightEncoderName = "rightPod", horizontalEncoderName = "horizontalPod";
+    String verticalLeftEncoderName = "rightBack", verticalRightEncoderName = "leftFront", horizontalEncoderName = "rightFront";
 
     final double PIVOT_SPEED = 0.5;
 

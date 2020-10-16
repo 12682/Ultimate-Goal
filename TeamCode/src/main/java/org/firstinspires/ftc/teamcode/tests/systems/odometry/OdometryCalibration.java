@@ -25,7 +25,7 @@ public class OdometryCalibration extends LinearOpMode {
 
     // HardwareMap names of motors and odometry pods
     String lfName = "leftFront", rfName = "rightFront", rbName = "rightBack", lbName = "leftBack";
-    String leftPodName = "leftPod", rightPodName = "rightPod", horizontalPodName = "horizontalPod";
+    String leftPodName = "rightBack", rightPodName = "leftFront", horizontalPodName = "rightFront";
 
     // Speed to rotate for calibration
     final double PIVOT_SPEED = 0.5;
