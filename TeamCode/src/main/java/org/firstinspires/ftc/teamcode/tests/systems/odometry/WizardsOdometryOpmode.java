@@ -21,7 +21,7 @@ public class WizardsOdometryOpmode extends LinearOpMode {
 
     //Hardware Map Names for drive motors and odometry wheels. THIS WILL CHANGE ON EACH ROBOT, YOU NEED TO UPDATE THESE VALUES ACCORDINGLY
     String rfName = "rightFront", rbName = "rightBack", lfName = "leftFront", lbName = "leftBack";
-    String verticalLeftEncoderName = "leftPod", verticalRightEncoderName = "rightPod", horizontalEncoderName = "horizontalPod";
+    String verticalLeftEncoderName = "rightBack", verticalRightEncoderName = "leftFront", horizontalEncoderName = "rightFront";
 
     WizardsOdometryGlobalCoordinatePosition globalPositionUpdate;
 
