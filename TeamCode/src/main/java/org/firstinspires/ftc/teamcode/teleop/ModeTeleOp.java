@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import com.goldenratiorobotics.robot.body.claimer.Claimer;
+
 import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
-import com.goldenratiorobotics.robot.body.latcher.Latcher;
-import com.goldenratiorobotics.robot.body.pincher.Pincher;
+
+
 import com.goldenratiorobotics.robot.brain.controlprocessor.ControlProcessor;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -17,9 +17,7 @@ public class ModeTeleOp extends LinearOpMode {
 
     private ElapsedTime    runtime     = new ElapsedTime();
     private DriveTrain     driveTrain  = null;
-    private Pincher        pincher     = null;
-    private Latcher        latcher     = null;
-    private Claimer        claimer     = null;
+
 
     private double rotX          = 0;
     private double moveY         = 0;
@@ -35,9 +33,6 @@ public class ModeTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() {
         driveTrain  = new DriveTrain(hardwareMap);
-        pincher     = new Pincher(hardwareMap);
-        latcher     = new Latcher(hardwareMap);
-        claimer     = new Claimer(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -73,28 +68,28 @@ public class ModeTeleOp extends LinearOpMode {
 
 
             if (gamepad1.y) {
-                latcher.unlatch();
+
             }
             if (gamepad1.a) {
-                latcher.latch();
+
             }
 
             pivotSpeed = ControlProcessor.power(gamepad2.left_stick_y * multPivot, 2.0 / 3.0);
 
-            pincher.runPivot(pivotSpeed);
+
 
             if (gamepad2.left_bumper) {
-                pincher.release();
+
             }
             if (gamepad2.right_bumper) {
-                pincher.pinch();
+
             }
 
             if (gamepad2.a) {
                 if (gamepad2.right_trigger > .66) {
-                    claimer.claim();
+
                 } else {
-                    claimer.neuter();
+
                 }
             }
 
