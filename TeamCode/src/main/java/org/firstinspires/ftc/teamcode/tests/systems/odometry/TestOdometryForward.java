@@ -17,10 +17,6 @@ public class TestOdometryForward extends LinearOpMode {
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
 
-    private double moveX;
-    private double moveY;
-    private double rotX;
-
     @Override
     public void runOpMode() {
         driveTrain = new DriveTrain(hardwareMap);
