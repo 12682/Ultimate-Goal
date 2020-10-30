@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
 
 
+import com.goldenratiorobotics.robot.body.intake.Intake;
 import com.goldenratiorobotics.robot.brain.controlprocessor.ControlProcessor;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -17,22 +18,19 @@ public class ModeTeleOp extends LinearOpMode {
 
     private ElapsedTime    runtime     = new ElapsedTime();
     private DriveTrain     driveTrain  = null;
-
+    private Intake         intake      = null;
 
     private double rotX          = 0;
     private double moveY         = 0;
     private double moveX         = 0;
     private double speedModifier = 0;
-    private double multRot       = .33;
-    private double multMoveY     = .50;
-    private double multMoveX     = .70;
 
-    private double pivotSpeed = 0;
-    private double multPivot  = .33;
+
 
     @Override
     public void runOpMode() {
         driveTrain  = new DriveTrain(hardwareMap);
+        intake      = new Intake(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -47,9 +45,9 @@ public class ModeTeleOp extends LinearOpMode {
                 speedModifier = gamepad1.right_trigger - gamepad1.left_trigger;
             }
 
-            rotX  = ControlProcessor.squareRoot(gamepad1.left_stick_x * speedModifier);
+            moveX  = ControlProcessor.squareRoot(gamepad1.left_stick_x * speedModifier);
             moveY = ControlProcessor.cubeRoot( -gamepad1.left_stick_y * speedModifier);
-            moveX = ControlProcessor.cubeRoot(gamepad1.right_stick_x * speedModifier);
+            rotX = ControlProcessor.cubeRoot(gamepad1.right_stick_x * speedModifier);
 
             driveTrain.moveTrig(moveX, moveY, rotX);
 
@@ -66,31 +64,14 @@ public class ModeTeleOp extends LinearOpMode {
                 driveTrain.moveRight(.40);
             }
 
+            if (gamepad2.b) {
+                intake.takeOut();
 
-            if (gamepad1.y) {
+            } else if (gamepad2.x) {
+                intake.takeIn();
 
-            }
-            if (gamepad1.a) {
-
-            }
-
-            pivotSpeed = ControlProcessor.power(gamepad2.left_stick_y * multPivot, 2.0 / 3.0);
-
-
-
-            if (gamepad2.left_bumper) {
-
-            }
-            if (gamepad2.right_bumper) {
-
-            }
-
-            if (gamepad2.a) {
-                if (gamepad2.right_trigger > .66) {
-
-                } else {
-
-                }
+            } else{
+                intake.stop();
             }
 
             //region telemetry
