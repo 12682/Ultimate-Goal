@@ -13,16 +13,31 @@ public class Shooter {
         flipper      = ServoNonContinuous.getInstance(hardwareMap,"flipper");
 
     }
-    public void shootOut(double speed) {
+    public void runShooter(double speed) {
         shooterMotor.setSpeed(speed);
     }
-
+    public void runShooterPosition(double speed, int position){
+        shooterMotor.runToPosition(speed,position);
+    }
     public double getSpeed(){
         return shooterMotor.getSpeed();
+    }
+    public int getMotorPosition(){
+        return shooterMotor.getPosition();
     }
   //flipper goes from 0 - 1
     public void moveFlipper(double position) {
         flipper.setPosition(position);
+    }
+    //need to test values
+    public void flipIn(){
+        moveFlipper(.7);
+    }
+    public void neuterFlipper(){
+        moveFlipper(.3);
+    }
+    public double getFlipperPosition(){
+        return flipper.getPosition();
     }
 
 }

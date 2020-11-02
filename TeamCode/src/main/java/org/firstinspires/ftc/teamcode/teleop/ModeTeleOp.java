@@ -5,12 +5,15 @@ import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
 
 
 import com.goldenratiorobotics.robot.body.intake.Intake;
+import com.goldenratiorobotics.robot.body.shooter.Shooter;
+import com.goldenratiorobotics.robot.body.wobbleGrabber.WobbleGrabber;
 import com.goldenratiorobotics.robot.brain.controlprocessor.ControlProcessor;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="TeleOp Mode", group="A. ModeTeleOp")
 //@Disabled
@@ -19,11 +22,20 @@ public class ModeTeleOp extends LinearOpMode {
     private ElapsedTime    runtime     = new ElapsedTime();
     private DriveTrain     driveTrain  = null;
     private Intake         intake      = null;
+    private Shooter        shooter     = null;
+    private WobbleGrabber  wobbleGrabber = null;
+
 
     private double rotX          = 0;
     private double moveY         = 0;
     private double moveX         = 0;
     private double speedModifier = 0;
+    private boolean previousGamepad2Y = false;
+    private boolean previousGamepad2LB = false;
+    private boolean previousGamepad2RB = false;
+    private double shooterSpeed        =.8;
+    private boolean isShooting         = false;
+    private boolean previousGamepad2A   = false;
 
 
 
@@ -31,7 +43,8 @@ public class ModeTeleOp extends LinearOpMode {
     public void runOpMode() {
         driveTrain  = new DriveTrain(hardwareMap);
         intake      = new Intake(hardwareMap);
-
+        shooter     = new Shooter(hardwareMap);
+        wobbleGrabber =new WobbleGrabber(hardwareMap);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -73,6 +86,44 @@ public class ModeTeleOp extends LinearOpMode {
             } else{
                 intake.stop();
             }
+
+            if (gamepad2.left_stick_y>.2){
+                shooter.flipIn();
+            } else {
+                shooter.neuterFlipper();
+            }
+
+            if (gamepad2.left_bumper && !previousGamepad2LB){
+                shooterSpeed = Range.clip(shooterSpeed-.1,.1,1);
+            }
+            if (gamepad2.right_bumper && !previousGamepad2RB){
+                shooterSpeed = Range.clip(shooterSpeed+.1,.1,1);
+            }
+
+            if (gamepad2.y && !previousGamepad2Y) {
+                isShooting = !isShooting;
+            }
+
+            if (isShooting) {
+                shooter.runShooter(shooterSpeed);
+            }
+
+            wobbleGrabber.runArm(gamepad2.right_stick_y);
+
+            if (gamepad2.a && !previousGamepad2A) {
+                if (wobbleGrabber.isPinched()){
+                    wobbleGrabber.release();
+                } else {
+                    wobbleGrabber.pinch();
+                }
+            }
+
+
+            previousGamepad2Y = gamepad2.y;
+            previousGamepad2LB = gamepad2.left_bumper;
+            previousGamepad2RB = gamepad2.right_bumper;
+            previousGamepad2A  =gamepad2.a;
+
 
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
