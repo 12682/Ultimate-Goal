@@ -43,9 +43,13 @@ public class TestWobbleGrabber extends LinearOpMode {
             previousRightBumper = gamepad1.right_bumper;
             previousLeftBumper  =gamepad1.left_bumper;
 
+            wobbleGrabber.runArm(-gamepad1.left_stick_y);
+
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("position",position);
+            telemetry.addData("limitIn",wobbleGrabber.isArmIn());
+            telemetry.addData("limitOut",wobbleGrabber.isArmOut());
             telemetry.update();
             //endregion
         }

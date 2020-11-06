@@ -108,7 +108,7 @@ public class ModeTeleOp extends LinearOpMode {
                 shooter.runShooter(shooterSpeed);
             }
 
-            wobbleGrabber.runArm(gamepad2.right_stick_y);
+            wobbleGrabber.runArm(-gamepad2.right_stick_y);
 
             if (gamepad2.a && !previousGamepad2A) {
                 if (wobbleGrabber.isPinched()){
@@ -127,7 +127,7 @@ public class ModeTeleOp extends LinearOpMode {
 
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Speed Mode", speedModifier);
+            telemetry.addData("shooter Speed", shooterSpeed);
             telemetry.update();
             //endregion
         }

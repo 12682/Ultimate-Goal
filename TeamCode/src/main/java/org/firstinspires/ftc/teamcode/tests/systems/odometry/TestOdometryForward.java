@@ -31,16 +31,16 @@ public class TestOdometryForward extends LinearOpMode {
         odometryUnit.start();
 
         while (opModeIsActive()) {
-            smartOdometry.moveForward(DistanceUnit.CM,25,.3,.65,5000);
+//           smartOdometry.moveForward(DistanceUnit.CM,2,.3,.65,25);
 
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Vertical Left Position", odometryUnit.returnVL());
             telemetry.addData("Vertical Right Position", odometryUnit.returnVR());
             telemetry.addData("Horizontal Position", odometryUnit.returnH());
-            telemetry.addData("(X, Y, Theta)", "(" + odometryUnit.returnPoint().x + ", " + odometryUnit.returnPoint().y + ", " + odometryUnit.returnOrientation() + ")");
-            telemetry.addData("(X, Y) IN", "(" + odometryUnit.returnPointUnits(DistanceUnit.INCH).x + ", " + odometryUnit.returnPointUnits(DistanceUnit.INCH).y + ")");
-            telemetry.addData("(X, Y) CM", "(" + odometryUnit.returnPointUnits(DistanceUnit.CM).x + ", " + odometryUnit.returnPointUnits(DistanceUnit.CM).y + ")");
+            telemetry.addData("(X, Y, Theta)", odometryUnit.returnPoint().toString());
+            telemetry.addData("(X, Y) IN", odometryUnit.returnPointUnits(DistanceUnit.INCH).toString());
+            telemetry.addData("(X, Y) CM", odometryUnit.returnPointUnits(DistanceUnit.CM).toString());
             telemetry.addData("Thread is Active", odometryUnit.isAlive());
             telemetry.update();
             //endregion
