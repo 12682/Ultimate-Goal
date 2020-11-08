@@ -31,13 +31,13 @@ public class TestWobbleGrabber extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            if (gamepad1.right_bumper && !previousRightBumper) {
-                position=Range.clip(position+0.1,0,1);
-            }
-            if (gamepad1.left_bumper && !previousLeftBumper) {
-                position=Range.clip(position-0.1,0,1);
-            }
-
+//            if (gamepad1.right_bumper && !previousRightBumper) {
+//                position=Range.clip(position+0.1,0,1);
+//            }
+//            if (gamepad1.left_bumper && !previousLeftBumper) {
+//                position=Range.clip(position-0.1,0,1);
+//            }
+            position=gamepad1.left_trigger;
             wobbleGrabber.pinchToPosition(position);
 
             previousRightBumper = gamepad1.right_bumper;
@@ -47,7 +47,7 @@ public class TestWobbleGrabber extends LinearOpMode {
 
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("position",position);
+            telemetry.addData("position",wobbleGrabber.getPincherPosition());
             telemetry.addData("limitIn",wobbleGrabber.isArmIn());
             telemetry.addData("limitOut",wobbleGrabber.isArmOut());
             telemetry.update();

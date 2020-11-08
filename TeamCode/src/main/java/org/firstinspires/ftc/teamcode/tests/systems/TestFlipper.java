@@ -34,13 +34,14 @@ public class TestFlipper extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            if (gamepad1.right_bumper && !previousRightBumper) {
+            if (gamepad1.right_bumper) {
                 position=Range.clip(position+0.1,0,1);
             }
-            if (gamepad1.left_bumper && !previousLeftBumper) {
+            if (gamepad1.left_bumper) {
                 position=Range.clip(position-0.1,0,1);
             }
-
+// && !previousRightBumper) {
+//             && !previousLeftBumper) {
             shooter.moveFlipper(position);
 
             previousRightBumper = gamepad1.right_bumper;
