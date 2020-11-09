@@ -25,19 +25,19 @@ public class Shooter {
     public int getMotorPosition(){
         return shooterMotor.getPosition();
     }
-  //flipper goes from 0 - 1
-    public void moveFlipper(double position) {
-        flipper.setPosition(position);
-    }
-    //need to test values
-    public void flipIn(){
-        moveFlipper(.7);
-    }
-    public void neuterFlipper(){
-        moveFlipper(.3);
-    }
-    public double getFlipperPosition(){
-        return flipper.getPosition();
-    }
+//  //flipper goes from 0 - 1
+//    public void moveFlipper(double position) {
+//        flipper.setPosition(position);
+//    }
+//    //need to test values
+//    public void flipIn(){
+//        moveFlipper(.7);
+//    }
+//    public void neuterFlipper(){
+//        moveFlipper(.3);
+//    }
+//    public double getFlipperPosition(){
+//        return flipper.getPosition();
+//    }
 
 }
