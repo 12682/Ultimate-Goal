@@ -34,14 +34,17 @@ public class TestFlipper extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            if (gamepad1.right_bumper) {
-                position=Range.clip(position+0.1,0,1);
-            }
-            if (gamepad1.left_bumper) {
-                position=Range.clip(position-0.1,0,1);
-            }
-// && !previousRightBumper) {
-//             && !previousLeftBumper) {
+           // if (gamepad1.right_bumper) {
+           //     position=Range.clip(position+0.1,0,1);
+          //  }
+           // if (gamepad1.left_bumper ) {
+           //     position=Range.clip(position-0.1,0,1);
+           // }
+        //&& !previousRightBumper
+            //&& !previousLeftBumper
+            position = gamepad1.left_trigger;
+
+
             shooter.moveFlipper(position);
 
             previousRightBumper = gamepad1.right_bumper;
@@ -49,7 +52,7 @@ public class TestFlipper extends LinearOpMode {
 
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("position",position);
+            telemetry.addData("position",shooter.getFlipperPosition());
             telemetry.update();
             //endregion
         }

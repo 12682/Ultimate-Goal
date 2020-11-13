@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.tests.components;
 
+import com.goldenratiorobotics.robot.body.shooter.Shooter;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -46,7 +47,7 @@ public class FlywheelTest extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor flyWheel = null;
+    private DcMotor ShooterMotor = null;
 
     @Override
     public void runOpMode() {
@@ -56,11 +57,11 @@ public class FlywheelTest extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        flyWheel  = hardwareMap.get(DcMotor.class, "left_drive");
+        ShooterMotor = hardwareMap.get(DcMotor.class, "shooterMotor");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        flyWheel.setDirection(DcMotor.Direction.FORWARD);
+        ShooterMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -88,7 +89,7 @@ public class FlywheelTest extends LinearOpMode {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
-            flyWheel.setPower(flyWheelPower);
+            ShooterMotor.setPower(flyWheelPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
