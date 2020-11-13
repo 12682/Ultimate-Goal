@@ -25,7 +25,6 @@ public class ModeTeleOp extends LinearOpMode {
     private Shooter        shooter     = null;
     private WobbleGrabber  wobbleGrabber = null;
 
-
     private double rotX          = 0;
     private double moveY         = 0;
     private double moveX         = 0;
