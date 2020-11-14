@@ -58,9 +58,9 @@ public class ModeTeleOp extends LinearOpMode {
                 speedModifier = gamepad1.right_trigger - gamepad1.left_trigger;
             }
 
-            moveX  = ControlProcessor.squareRoot(gamepad1.left_stick_x * speedModifier);
-            moveY = ControlProcessor.cubeRoot( -gamepad1.left_stick_y * speedModifier);
-            rotX = ControlProcessor.cubeRoot(gamepad1.right_stick_x * speedModifier);
+            moveX  = ControlProcessor.squareRoot(-gamepad1.left_stick_x * speedModifier);
+            moveY = ControlProcessor.cubeRoot(gamepad1.left_stick_y * speedModifier);
+            rotX = ControlProcessor.cubeRoot(-gamepad1.right_stick_x * speedModifier);
 
             driveTrain.moveTrig(moveX, moveY, rotX);
 
@@ -87,7 +87,7 @@ public class ModeTeleOp extends LinearOpMode {
                 intake.stop();
             }
 
- //           if (gamepad2.left_stick_y>.2){
+            //           if (gamepad2.left_stick_y>.2){
 //                shooter.flipIn();
 //            } else {
 //                shooter.neuterFlipper();
