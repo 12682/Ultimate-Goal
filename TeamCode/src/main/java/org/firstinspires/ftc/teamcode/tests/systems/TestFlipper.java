@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.tests.systems;
 
-import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
 import com.goldenratiorobotics.robot.body.shooter.Shooter;
-import com.goldenratiorobotics.robot.brain.controlprocessor.ControlProcessor;
-import com.goldenratiorobotics.robot.brain.gyro.Gyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -42,7 +39,7 @@ public class TestFlipper extends LinearOpMode {
            // }
         //&& !previousRightBumper
             //&& !previousLeftBumper
-            position = gamepad1.left_trigger;
+            position = (-gamepad1.left_stick_y+1)/2;
 
 
             shooter.moveFlipper(position);

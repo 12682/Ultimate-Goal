@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Shooter {
     private Motor shooterMotor = null;
     private ServoNonContinuous flipper = null;
+    private double inPosition = 0.92;
+    private double neutralPosition = 0.67;
 
     public Shooter(HardwareMap hardwareMap) {
         shooterMotor = Motor.getInstance(hardwareMap,"shooterMotor");
@@ -31,13 +33,16 @@ public class Shooter {
     }
     //need to test values
     public void flipIn(){
-        moveFlipper(.7);
+        moveFlipper(inPosition);
     }
     public void neuterFlipper(){
-        moveFlipper(.3);
+        moveFlipper(neutralPosition);
     }
     public double getFlipperPosition(){
         return flipper.getPosition();
+    }
+    public boolean isFlipped(){
+        return getFlipperPosition()>=inPosition;
     }
 
 }

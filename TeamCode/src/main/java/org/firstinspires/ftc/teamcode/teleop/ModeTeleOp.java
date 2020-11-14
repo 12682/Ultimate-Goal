@@ -86,11 +86,11 @@ public class ModeTeleOp extends LinearOpMode {
                 intake.stop();
             }
 
-            //           if (gamepad2.left_stick_y>.2){
-//                shooter.flipIn();
-//            } else {
-//                shooter.neuterFlipper();
-//            }
+            if (-gamepad2.left_stick_y>.2){
+                shooter.flipIn();
+            } else {
+                shooter.neuterFlipper();
+            }
 
             if (gamepad2.left_bumper && !previousGamepad2LB){
                 shooterSpeed = Range.clip(shooterSpeed-.1,.1,1);
