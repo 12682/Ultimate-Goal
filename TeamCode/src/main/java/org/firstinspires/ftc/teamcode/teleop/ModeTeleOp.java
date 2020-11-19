@@ -86,26 +86,15 @@ public class ModeTeleOp extends LinearOpMode {
                 intake.stop();
             }
 
-            if (-gamepad2.left_stick_y>.2){
-                shooter.flipIn();
-            } else {
-                shooter.neuterFlipper();
-            }
+            //           if (gamepad2.left_stick_y>.2){
+//                shooter.flipIn();
+//            } else {
+//                shooter.neuterFlipper();
+//            }
 
-            if (gamepad2.left_bumper && !previousGamepad2LB){
-                shooterSpeed = Range.clip(shooterSpeed-.1,.1,1);
-            }
-            if (gamepad2.right_bumper && !previousGamepad2RB){
-                shooterSpeed = Range.clip(shooterSpeed+.1,.1,1);
-            }
+            shooterSpeed = gamepad2.right_trigger;
 
-            if (gamepad2.y && !previousGamepad2Y) {
-                isShooting = !isShooting;
-            }
-
-            if (isShooting) {
-                shooter.runShooter(shooterSpeed);
-            }
+            shooter.runShooter(shooterSpeed);
 
             wobbleGrabber.runArm(-gamepad2.right_stick_y);
 

@@ -31,7 +31,7 @@ public class TestOdometryForward extends LinearOpMode {
         odometryUnit.start();
 
         while (opModeIsActive()) {
-//           smartOdometry.moveForward(DistanceUnit.CM,2,.3,.65,25);
+           smartOdometry.moveForward(DistanceUnit.CM,2,.3,.65,25);
 
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());

@@ -45,14 +45,15 @@ public class WobbleGrabber {
 
     }
 
+    //towards robot for positive, away from robot negative.
     public void runArmManual (double speed){
         arm.setSpeed(speed);
     }
     public void runArm (double speed) {
         if (isArmIn()){
-            runArmManual(Range.clip(speed,0,1));
-        } else if (isArmOut()){
             runArmManual(Range.clip(speed,-1,0));
+        } else if (isArmOut()){
+            runArmManual(Range.clip(speed,0,1));
         } else {
             runArmManual(speed);
         }
