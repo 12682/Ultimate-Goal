@@ -24,15 +24,19 @@ public class TestOdometryForward extends LinearOpMode {
         smartOdometry = new SmartOdometry(driveTrain,odometryUnit);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
+        boolean running = true;
         waitForStart();
         runtime.reset();
 
         odometryUnit.start();
 
         while (opModeIsActive()) {
-           smartOdometry.moveForward(DistanceUnit.CM,2,.3,.65,25);
-
+            if (running) {
+                smartOdometry.moveBackward(DistanceUnit.CM,20,.3,.65,1000);
+            } else {
+                driveTrain.stop();
+            }
+            running = false;
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Vertical Left Position", odometryUnit.returnVL());

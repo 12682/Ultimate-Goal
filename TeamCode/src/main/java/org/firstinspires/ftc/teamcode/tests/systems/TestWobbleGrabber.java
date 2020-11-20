@@ -31,12 +31,12 @@ public class TestWobbleGrabber extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-//            if (gamepad1.right_bumper && !previousRightBumper) {
-//                position=Range.clip(position+0.1,0,1);
-//            }
-//            if (gamepad1.left_bumper && !previousLeftBumper) {
-//                position=Range.clip(position-0.1,0,1);
-//            }
+            if (gamepad1.right_bumper && !previousRightBumper) {
+                position=Range.clip(position+0.1,0,1);
+            }
+            if (gamepad1.left_bumper && !previousLeftBumper) {
+                position=Range.clip(position-0.1,0,1);
+            }
             position=(-gamepad1.right_stick_y +1)/2;
             wobbleGrabber.pinchToPosition(position);
 
