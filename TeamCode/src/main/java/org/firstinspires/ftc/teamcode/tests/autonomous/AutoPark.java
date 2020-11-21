@@ -1,21 +1,23 @@
-package org.firstinspires.ftc.teamcode.tests.systems.odometry;
+package org.firstinspires.ftc.teamcode.tests.autonomous;
 
 import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
 import com.goldenratiorobotics.robot.body.odometry.OdometryUnit;
 import com.goldenratiorobotics.robot.brain.smart.SmartOdometry;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@TeleOp(name="Test OdometryForward", group="C. Tests System")
+@Autonomous(name="Auto Park", group = "A. Autonomous")
 //@Disabled
-public class TestOdometryForward extends LinearOpMode {
+public class AutoPark extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DriveTrain driveTrain;
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
+    int Stage = 0;
 
     @Override
     public void runOpMode() {
@@ -31,9 +33,19 @@ public class TestOdometryForward extends LinearOpMode {
         odometryUnit.start();
 
         while (opModeIsActive()) {
-           smartOdometry.moveBackward(DistanceUnit.CM,.5,.3,.65,5);
+           if (Stage == 0) {
+                smartOdometry.moveBackward(DistanceUnit.CM,50,.3,.65,3000);
+                driveTrain.stop();
+                Stage =99;
+            }
+            if (Stage == 1) {
+
+                driveTrain.stop();
+                Stage++;
+            }
 
             //region telemetry
+            telemetry.addData("Stage", Stage);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Vertical Left Position", odometryUnit.returnVL());
             telemetry.addData("Vertical Right Position", odometryUnit.returnVR());
