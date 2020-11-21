@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode.tests.autonomous;
 import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
 import com.goldenratiorobotics.robot.body.odometry.OdometryUnit;
 import com.goldenratiorobotics.robot.brain.smart.SmartOdometry;
+import com.qualcomm.hardware.ams.AMSColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.goldenratiorobotics.robot.body.shooter.Shooter;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -16,11 +18,14 @@ public class AutoShootPark extends LinearOpMode {
     private DriveTrain driveTrain;
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
+    private Shooter        shooter     = null;
+    private double shooterSpeed        =.8;
     int Stage = 0;
 
     @Override
     public void runOpMode() {
         driveTrain = new DriveTrain(hardwareMap);
+        shooter     = new Shooter(hardwareMap);
         odometryUnit = new OdometryUnit(hardwareMap, "rightBack", "leftFront", "rightFront");
         smartOdometry = new SmartOdometry(driveTrain,odometryUnit);
         telemetry.addData("Status", "Initialized");
@@ -34,17 +39,46 @@ public class AutoShootPark extends LinearOpMode {
         while (opModeIsActive()) {
             // Drive to wall
            if (Stage == 0) {
-                smartOdometry.moveBackward(DistanceUnit.CM,225,.3,.65,10000);
+                smartOdometry.moveBackward(DistanceUnit.CM,225,.3,.65,4800);
                 driveTrain.stop();
                 Stage++;
             }
            //shoot rings
             if (Stage == 1) {
-                Stage = 999;
+                shooter.runShooter(.8);
+                sleep(300);
+                shooter.flipIn();
+                sleep(300);
+                shooter.neuterFlipper();
+                sleep(300);
+                shooter.flipIn();
+                sleep(300);
+                shooter.neuterFlipper();
+                sleep(300);
+                shooter.flipIn();
+                sleep(300);
+                shooter.neuterFlipper();
+                sleep(300);
+                shooter.flipIn();
+                sleep(300);
+                shooter.neuterFlipper();
+                sleep(300);
+                shooter.flipIn();
+                sleep(300);
+                shooter.neuterFlipper();
+                sleep(300);
+                shooter.flipIn();
+                sleep(300);
+                shooter.neuterFlipper();
+                sleep(300);
+
+
+                shooter.runShooter(0);
+                Stage++;
             }
             // Drive to park
             if (Stage == 2) {
-                smartOdometry.moveForward(DistanceUnit.CM,170,.3,.65,10000);
+                smartOdometry.moveForward(DistanceUnit.CM,170,.3,.65,2000);
                 driveTrain.stop();
                 Stage++;
             }

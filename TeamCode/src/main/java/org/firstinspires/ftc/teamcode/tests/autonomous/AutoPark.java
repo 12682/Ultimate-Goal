@@ -34,14 +34,16 @@ public class AutoPark extends LinearOpMode {
 
         while (opModeIsActive()) {
            if (Stage == 0) {
-                smartOdometry.moveBackward(DistanceUnit.CM,50,.3,.65,3000);
-                driveTrain.stop();
-                Stage =99;
+               telemetry.addData("Stage", Stage);
+               telemetry.update();
+               smartOdometry.moveBackward(DistanceUnit.CM,180,.3,.65,2800);
+                Stage++;
             }
             if (Stage == 1) {
-
+                telemetry.addData("Stage", Stage);
+                telemetry.update();
                 driveTrain.stop();
-                Stage++;
+                Stage = 999;
             }
 
             //region telemetry
