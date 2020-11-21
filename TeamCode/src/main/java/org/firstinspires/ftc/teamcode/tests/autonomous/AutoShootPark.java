@@ -46,31 +46,31 @@ public class AutoShootPark extends LinearOpMode {
            //shoot rings
             if (Stage == 1) {
                 shooter.runShooter(.8);
-                sleep(300);
+                sleep(1500);
                 shooter.flipIn();
-                sleep(300);
+                sleep(1500);
                 shooter.neuterFlipper();
-                sleep(300);
+                sleep(1500);
                 shooter.flipIn();
-                sleep(300);
+                sleep(1000);
                 shooter.neuterFlipper();
-                sleep(300);
+                sleep(1000);
                 shooter.flipIn();
-                sleep(300);
+                sleep(1000);
                 shooter.neuterFlipper();
-                sleep(300);
+                sleep(1000);
                 shooter.flipIn();
-                sleep(300);
+                sleep(1000);
                 shooter.neuterFlipper();
-                sleep(300);
+                sleep(1000);
                 shooter.flipIn();
-                sleep(300);
+                sleep(1000);
                 shooter.neuterFlipper();
-                sleep(300);
+                sleep(1000);
                 shooter.flipIn();
-                sleep(300);
+                sleep(1000);
                 shooter.neuterFlipper();
-                sleep(300);
+                sleep(1000);
 
 
                 shooter.runShooter(0);
