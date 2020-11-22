@@ -77,10 +77,10 @@ public class ModeTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.b) {
-                intake.takeOut();
+                intake.takeIn();
 
             } else if (gamepad2.x) {
-                intake.takeIn();
+                intake.takeOut();
 
             } else{
                 intake.stop();
