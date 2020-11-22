@@ -67,18 +67,12 @@ public class AutoShootPark extends LinearOpMode {
                 sleep(1000);
                 shooter.neuterFlipper();
                 sleep(1000);
-                shooter.flipIn();
-                sleep(1000);
-                shooter.neuterFlipper();
-                sleep(1000);
-
-
                 shooter.runShooter(0);
                 Stage++;
             }
             // Drive to park
             if (Stage == 2) {
-                smartOdometry.moveForward(DistanceUnit.CM,170,.3,.65,2000);
+                smartOdometry.moveForward(DistanceUnit.CM,168,.3,.65,2000);
                 driveTrain.stop();
                 Stage++;
             }
