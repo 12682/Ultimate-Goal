@@ -1,11 +1,10 @@
-package org.firstinspires.ftc.teamcode.tests.autonomous;
+package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
 import com.goldenratiorobotics.robot.body.odometry.OdometryUnit;
 import com.goldenratiorobotics.robot.brain.smart.SmartOdometry;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
