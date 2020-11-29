@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.tests.autonomous;
+package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
 import com.goldenratiorobotics.robot.body.odometry.OdometryUnit;
@@ -45,6 +45,8 @@ public class AutoShootPark extends LinearOpMode {
             }
            //shoot rings
             if (Stage == 1) {
+                smartOdometry.rotateLeft(5,.1,.3,1000);
+                driveTrain.stop();
                 shooter.runShooter(.8);
                 sleep(1500);
                 shooter.flipIn();
@@ -68,11 +70,13 @@ public class AutoShootPark extends LinearOpMode {
                 shooter.neuterFlipper();
                 sleep(1000);
                 shooter.runShooter(0);
+                smartOdometry.rotateRight(5,.1,.3,1000);
+                driveTrain.stop();
                 Stage++;
             }
             // Drive to park
             if (Stage == 2) {
-                smartOdometry.moveForward(DistanceUnit.CM,168,.3,.65,2000);
+                smartOdometry.moveForward(DistanceUnit.CM,159,.3,.65,2000);
                 driveTrain.stop();
                 Stage++;
             }
