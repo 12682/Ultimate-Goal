@@ -13,6 +13,7 @@ public class Shooter {
     public Shooter(HardwareMap hardwareMap) {
         shooterMotor = Motor.getInstance(hardwareMap,"shooterMotor");
         flipper      = ServoNonContinuous.getInstance(hardwareMap,"flipper");
+        shooterMotor.reverseDirection();
 
     }
     public void runShooter(double speed) {
