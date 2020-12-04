@@ -64,10 +64,10 @@ public class ModeTeleOp extends LinearOpMode {
             driveTrain.moveTrig(moveX, moveY, rotX);
 
             if (gamepad1.dpad_up) {
-                driveTrain.moveForward(.40);
+                driveTrain.moveBackward(.40);
             }
             if (gamepad1.dpad_down) {
-                driveTrain.moveBackward(.40);
+                driveTrain.moveForward(.40);
             }
             if (gamepad1.dpad_left) {
                 driveTrain.moveLeft(.40);
@@ -77,16 +77,15 @@ public class ModeTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.b) {
-                intake.takeOut();
+                intake.takeIn();
 
             } else if (gamepad2.x) {
-                intake.takeIn();
+                intake.takeOut();
 
             } else{
                 intake.stop();
             }
-
-                       if (gamepad2.left_stick_y>.2){
+            if (gamepad2.left_stick_y>.2){
                 shooter.flipIn();
             } else {
                 shooter.neuterFlipper();
@@ -96,7 +95,14 @@ public class ModeTeleOp extends LinearOpMode {
 
             shooter.runShooter(shooterSpeed);
 
-            wobbleGrabber.runArm(-gamepad2.right_stick_y);
+            if (gamepad2.dpad_up){
+                wobbleGrabber.runArm(.4);
+            } else if (gamepad2.dpad_down) {
+                wobbleGrabber.runArm(-.4);
+            } else {
+                wobbleGrabber.runArm(-gamepad2.right_stick_y);
+            }
+
 
             if (gamepad2.a && !previousGamepad2A) {
                 if (wobbleGrabber.isPinched()){

@@ -16,11 +16,11 @@ public class Intake {
 
     }
     public void takeIn() {
-        setSpeed(1);
+        setSpeed(-.8);
 
     }
     public void takeOut() {
-        setSpeed(-1);
+        setSpeed(.75);
     }
     public void stop() {
         setSpeed(0);

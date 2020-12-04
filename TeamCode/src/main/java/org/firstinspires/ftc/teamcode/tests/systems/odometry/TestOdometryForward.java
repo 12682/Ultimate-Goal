@@ -24,25 +24,22 @@ public class TestOdometryForward extends LinearOpMode {
         smartOdometry = new SmartOdometry(driveTrain,odometryUnit);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-        boolean running = true;
+
         waitForStart();
         runtime.reset();
 
         odometryUnit.start();
 
         while (opModeIsActive()) {
-            if (running) {
-                smartOdometry.moveBackward(DistanceUnit.CM,20,.3,.65,1000);
-            } else {
-                driveTrain.stop();
-            }
-            running = false;
+           smartOdometry.moveBackward(DistanceUnit.CM,.5,.3,.65,5);
+
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Vertical Left Position", odometryUnit.returnVL());
             telemetry.addData("Vertical Right Position", odometryUnit.returnVR());
             telemetry.addData("Horizontal Position", odometryUnit.returnH());
-            telemetry.addData("(X, Y, Theta)", odometryUnit.returnPoint().toString());
+            telemetry.addData("(X, Y)", odometryUnit.returnPoint().toString());
+            telemetry.addData("orientation", odometryUnit.returnOrientation());
             telemetry.addData("(X, Y) IN", odometryUnit.returnPointUnits(DistanceUnit.INCH).toString());
             telemetry.addData("(X, Y) CM", odometryUnit.returnPointUnits(DistanceUnit.CM).toString());
             telemetry.addData("Thread is Active", odometryUnit.isAlive());
