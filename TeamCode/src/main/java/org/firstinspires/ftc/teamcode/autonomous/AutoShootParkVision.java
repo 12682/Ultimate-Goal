@@ -79,18 +79,18 @@ public class AutoShootParkVision extends LinearOpMode {
 
             //Move out of the way from rings
             if (stage==1){
-                smartOdometry.moveRight(DistanceUnit.CM,44, .2, .5, 1500);
+                smartOdometry.moveLeft(DistanceUnit.CM,44, .2, .5, 1500);
                 stage++;
             }
             //Move up to boxes
             if (stage==2){
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM, 170, .2, .8, 5000);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 170, .2, .8, 5000);
                 } else if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM, 224, .25,.85, 5500 );
-                    smartOdometry.moveLeft(DistanceUnit.CM, 60, .2, .5, 1500);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 224, .25,.85, 5500 );
+                    smartOdometry.moveRight(DistanceUnit.CM, 60, .2, .5, 1500);
                 } else {
-                    smartOdometry.moveForward(DistanceUnit.CM, 290, .3, .9, 10000);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 290, .3, .9, 10000);
                 }
                 stage++;
             }
@@ -102,13 +102,13 @@ public class AutoShootParkVision extends LinearOpMode {
             //Move to goal
             if (stage == 4) {
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM, 122, .2, .65, 5000);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 87, .2, .5, 2000);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 122, .2, .65, 5000);
+                    smartOdometry.moveRight(DistanceUnit.CM, 87, .2, .5, 2000);
                 } else if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM, 70, .25,.65, 3000 );
-                    smartOdometry.moveLeft(DistanceUnit.CM, 28, .2, .5, 1500);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 70, .25,.65, 3000 );
+                    smartOdometry.moveRight(DistanceUnit.CM, 28, .2, .5, 1500);
                 } else {
-                    smartOdometry.moveLeft(DistanceUnit.CM, 87, .2, .5, 2000);
+                    smartOdometry.moveRight(DistanceUnit.CM, 87, .2, .5, 2000);
                 }
                 stage++;
             }
@@ -120,10 +120,10 @@ public class AutoShootParkVision extends LinearOpMode {
             //Park
             if (stage == 5) {
                 if (ringNumber == 1) {
-                    smartOdometry.moveLeft(DistanceUnit.CM, 35, .2, .8, 2000);
-                    smartOdometry.moveBackward(DistanceUnit.CM, 127, .2, .8, 4000);
+                    smartOdometry.moveRight(DistanceUnit.CM, 35, .2, .8, 2000);
+                    smartOdometry.moveForward(DistanceUnit.CM, 127, .2, .8, 4000);
                 } else {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 127, .2, .8, 4000);
+                    smartOdometry.moveForward(DistanceUnit.CM, 127, .2, .8, 4000);
                 }
                 stage++;
             }
