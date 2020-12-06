@@ -13,7 +13,7 @@ public class TestFlipper extends LinearOpMode {
     private ElapsedTime runtime    = new ElapsedTime();
     private Shooter     shooter;
 
-    private double position =.5;
+    private double position= -.5;
 
     private boolean previousRightBumper = false;
     private boolean previousLeftBumper = false;
@@ -39,7 +39,7 @@ public class TestFlipper extends LinearOpMode {
            // }
         //&& !previousRightBumper
             //&& !previousLeftBumper
-            position = (-gamepad1.left_stick_y+1)/2;
+            position = (-gamepad1.left_stick_y+2)/1;
 
 
             shooter.moveFlipper(position);
