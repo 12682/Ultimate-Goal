@@ -16,8 +16,8 @@ public class DriveTrain {
         leftBack   = Motor.getInstance(hardwareMap, "leftBack");
         rightBack  = Motor.getInstance(hardwareMap, "rightBack");
 
-        rightFront.reverseDirection();
-        rightBack.reverseDirection();
+        leftFront.reverseDirection();
+        leftBack.reverseDirection();
     }
 
     public void reset() {

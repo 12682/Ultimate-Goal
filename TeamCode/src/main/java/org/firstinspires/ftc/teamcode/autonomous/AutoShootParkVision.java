@@ -76,31 +76,43 @@ public class AutoShootParkVision extends LinearOpMode {
                 ringNumber = pipeline.getRingNumber();
                 stage++;
             }
-
-            //Move out of the way from rings
+            //move either left or right based on ring number.
             if (stage==1){
-                smartOdometry.moveRight(DistanceUnit.CM,44, .2, .5, 1500);
-                stage++;
-            }
-            //Move up to boxes
-            if (stage==2){
-                if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM, 170, .2, .8, 5000);
-                } else if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM, 224, .25,.85, 5500 );
-                    smartOdometry.moveLeft(DistanceUnit.CM, 60, .2, .5, 1500);
+                if (ringNumber == 1) {
+                    smartOdometry.moveRight(DistanceUnit.CM, 32, .2, .5, 1088);
                 } else {
-                    smartOdometry.moveForward(DistanceUnit.CM, 290, .3, .9, 10000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 52, .2, .5, 1768);
                 }
                 stage++;
             }
-            //Puts wobble goal in box
+
+            //Move forward to be parallel to target zone.
+            if (stage==2){
+                if (ringNumber == 0) {
+                    smartOdometry.moveForward(DistanceUnit.CM,44, .2, .5, 3650);
+                } else if (ringNumber == 1){
+                    smartOdometry.moveForward(DistanceUnit.CM,44, .2, .5, 5650);
+                } else {
+                    smartOdometry.moveForward(DistanceUnit.CM,198, .2, .8,3450 );
+                }
+                stage++;
+            }
+
             if (stage==3){
+                if (ringNumber == 4 ) {
+                    smartOdometry.moveRight(DistanceUnit.CM, 20, .2, .5, 1500);
+                }
+                stage=999;
+            }
+            //Move up to target 2 box otherwise, do not move at all.
+
+            //Puts wobble goal in box
+            if (stage==4){
             //Drop wobble here
                 stage++;
             }
             //Move to goal
-            if (stage == 4) {
+            if (stage == 5) {
                 if (ringNumber == 0) {
                     smartOdometry.moveForward(DistanceUnit.CM, 122, .2, .65, 5000);
                     smartOdometry.moveLeft(DistanceUnit.CM, 87, .2, .5, 2000);
@@ -129,6 +141,7 @@ public class AutoShootParkVision extends LinearOpMode {
             }
 
             //region telemetry
+            telemetry.addData("Ring number =", + ringNumber);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Vertical Left Position", odometryUnit.returnVL());
             telemetry.addData("Vertical Right Position", odometryUnit.returnVR());
