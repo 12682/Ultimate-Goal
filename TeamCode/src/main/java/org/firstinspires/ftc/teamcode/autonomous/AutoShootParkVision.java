@@ -44,6 +44,7 @@ public class AutoShootParkVision extends LinearOpMode {
         shooter     = new Shooter(hardwareMap);
         odometryUnit = new OdometryUnit(hardwareMap, "rightBack", "leftFront", "rightFront");
         smartOdometry = new SmartOdometry(driveTrain,odometryUnit);
+        wobbleGrabber =new WobbleGrabber(hardwareMap);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
@@ -130,7 +131,7 @@ public class AutoShootParkVision extends LinearOpMode {
             //drop wobble goal
             if (stage == 6) {
                 while (endLoop == 0) {
-//                    wobbleGrabber.runArmManual(.2);
+                    wobbleGrabber.runArmManual(.2);
                     wait(2000);
                     endLoop = 1;
                 }
