@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 import com.goldenratiorobotics.robot.body.drivetrain.DriveTrain;
 import com.goldenratiorobotics.robot.body.odometry.OdometryUnit;
 import com.goldenratiorobotics.robot.body.shooter.Shooter;
+import com.goldenratiorobotics.robot.body.wobbleGrabber.WobbleGrabber;
 import com.goldenratiorobotics.robot.brain.smart.SmartOdometry;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -30,13 +31,15 @@ public class AutoShootParkVision extends LinearOpMode {
     private SmartOdometry smartOdometry;
     private Shooter        shooter     = null;
     private double shooterSpeed        =.8;
+    private WobbleGrabber wobbleGrabber = null;
     int ringNumber = 0;
     int stage = 0;
+    int endLoop = 0;
     OpenCvInternalCamera phoneCam;
     AutoShootParkVision.SkystoneDeterminationPipeline pipeline;
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         driveTrain = new DriveTrain(hardwareMap);
         shooter     = new Shooter(hardwareMap);
         odometryUnit = new OdometryUnit(hardwareMap, "rightBack", "leftFront", "rightFront");
@@ -74,7 +77,7 @@ public class AutoShootParkVision extends LinearOpMode {
             if (stage==0){
                 pipeline.getAnalysis();
                 ringNumber = pipeline.getRingNumber();
-                stage++;
+                stage=6;
             }
             //move either left or right based on ring number.
             if (stage==1){
@@ -123,6 +126,15 @@ public class AutoShootParkVision extends LinearOpMode {
                     smartOdometry.moveLeft(DistanceUnit.CM, 87, .2, .5, 2000);
                 }
                 stage++;
+            }
+            //drop wobble goal
+            if (stage == 6) {
+                while (endLoop == 0) {
+//                    wobbleGrabber.runArmManual(.2);
+                    wait(2000);
+                    endLoop = 1;
+                }
+                stage=999;
             }
             //Shoot
             if (stage==4){
