@@ -32,10 +32,10 @@ public class WobbleGrabber {
         pincher.setPosition(position);
     }
     public void pinch() {
-        pinchToPosition(1);
+        pinchToPosition(0);
     }
     public void release(){
-        pinchToPosition(0);
+        pinchToPosition(.5);
     }
     public double getPincherPosition(){
         return pincher.getPosition();

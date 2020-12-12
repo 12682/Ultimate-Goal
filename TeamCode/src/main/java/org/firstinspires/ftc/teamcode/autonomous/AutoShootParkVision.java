@@ -35,6 +35,8 @@ public class AutoShootParkVision extends LinearOpMode {
     int ringNumber = 0;
     int stage = 0;
     int endLoop = 0;
+    long timeout = 2000;
+    long st = 0;
     OpenCvInternalCamera phoneCam;
     AutoShootParkVision.SkystoneDeterminationPipeline pipeline;
 
@@ -73,12 +75,13 @@ public class AutoShootParkVision extends LinearOpMode {
 
         odometryUnit.start();
 
+        wobbleGrabber.isPinched();
         while (opModeIsActive()) {
             //Count rings
             if (stage==0){
                 pipeline.getAnalysis();
                 ringNumber = pipeline.getRingNumber();
-                stage=6;
+                stage++;
             }
             //move either left or right based on ring number.
             if (stage==1){
@@ -93,9 +96,9 @@ public class AutoShootParkVision extends LinearOpMode {
             //Move forward to be parallel to target zone.
             if (stage==2){
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM,44, .2, .5, 3650);
+                    smartOdometry.moveForward(DistanceUnit.CM,45, .5, .8, 2300);
                 } else if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM,44, .2, .5, 5650);
+                    smartOdometry.moveForward(DistanceUnit.CM,44, .5, .8, 3500);
                 } else {
                     smartOdometry.moveForward(DistanceUnit.CM,198, .2, .8,3450 );
                 }
@@ -103,38 +106,29 @@ public class AutoShootParkVision extends LinearOpMode {
             }
 
             if (stage==3){
-                if (ringNumber == 4 ) {
-                    smartOdometry.moveRight(DistanceUnit.CM, 20, .2, .5, 1500);
-                }
-                stage=999;
-            }
-            //Move up to target 2 box otherwise, do not move at all.
-
-            //Puts wobble goal in box
-            if (stage==4){
-            //Drop wobble here
-                stage++;
-            }
-            //Move to goal
-            if (stage == 5) {
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM, 122, .2, .65, 5000);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 87, .2, .5, 2000);
-                } else if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM, 70, .25,.65, 3000 );
-                    smartOdometry.moveLeft(DistanceUnit.CM, 28, .2, .5, 1500);
-                } else {
-                    smartOdometry.moveLeft(DistanceUnit.CM, 87, .2, .5, 2000);
+                    smartOdometry.moveRight(DistanceUnit.CM, 20, .2, .5, 2000);
                 }
                 stage++;
             }
             //drop wobble goal
-            if (stage == 6) {
-                while (endLoop == 0) {
-                    wobbleGrabber.runArmManual(.2);
-                    wait(2000);
-                    endLoop = 1;
+            if (stage == 4) {
+                st = System.currentTimeMillis();
+                while (System.currentTimeMillis() - st < timeout) {
+                    wobbleGrabber.runArmManual(-.4);
                 }
+                wobbleGrabber.runArm(0);
+                wobbleGrabber.release();
+                stage++;
+            }
+            //close pincher and bring arm in
+            if (stage == 5) {
+                st = System.currentTimeMillis();
+                wobbleGrabber.isPinched();
+                while (System.currentTimeMillis() - st < timeout) {
+                    wobbleGrabber.runArmManual(.4);
+                 }
+                wobbleGrabber.runArm(0);
                 stage=999;
             }
             //Shoot
