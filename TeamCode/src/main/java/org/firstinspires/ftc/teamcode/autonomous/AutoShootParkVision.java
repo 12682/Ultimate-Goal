@@ -85,15 +85,12 @@ public class AutoShootParkVision extends LinearOpMode {
             }
             //move either left or right based on ring number.
             if (stage==1){
-                if (ringNumber == 1) {
-                    smartOdometry.moveRight(DistanceUnit.CM, 32, .2, .5, 1088);
-                } else {
-                    smartOdometry.moveLeft(DistanceUnit.CM, 52, .2, .5, 1768);
-                }
+                    smartOdometry.moveRight(DistanceUnit.CM, 100, .2, .5, 1500);
                 stage++;
             }
 
             //Move forward to be parallel to target zone.
+
             if (stage==2){
                 if (ringNumber == 0) {
                     smartOdometry.moveForward(DistanceUnit.CM,45, .5, .8, 2300);
