@@ -83,7 +83,7 @@ public class AutoShootParkVision extends LinearOpMode {
                 ringNumber = pipeline.getRingNumber();
                 stage++;
             }
-            //move either left or right based on ring number.
+            //move right to get out of the way of rings
             if (stage==1){
                     smartOdometry.moveRight(DistanceUnit.CM, 100, .2, .5, 1500);
                 stage++;
@@ -93,18 +93,24 @@ public class AutoShootParkVision extends LinearOpMode {
 
             if (stage==2){
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM,45, .5, .8, 2300);
-                } else if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM,44, .5, .8, 3500);
-                } else {
-                    smartOdometry.moveForward(DistanceUnit.CM,198, .2, .8,3450 );
+                    smartOdometry.moveForward(DistanceUnit.CM,45, .5, .8, 2700);
+                }
+                if (ringNumber == 1){
+                    smartOdometry.moveForward(DistanceUnit.CM,44, .5, .8, 3200);
+                }
+                if (ringNumber == 4){
+                    smartOdometry.moveForward(DistanceUnit.CM,145, .2, .8,4075);
                 }
                 stage++;
             }
-
+            // move closer to the target square if needed. (0 rings and 4 rings)
             if (stage==3){
                 if (ringNumber == 0) {
-                    smartOdometry.moveRight(DistanceUnit.CM, 20, .2, .5, 2000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 90, .2, .5, 3000);
+                }
+
+                if (ringNumber == 4) {
+                    smartOdometry.moveLeft(DistanceUnit.CM, 90, .2, .5, 3000);
                 }
                 stage++;
             }
@@ -126,20 +132,17 @@ public class AutoShootParkVision extends LinearOpMode {
                     wobbleGrabber.runArmManual(.4);
                  }
                 wobbleGrabber.runArm(0);
-                stage=999;
-            }
-            //Shoot
-            if (stage==4){
                 stage++;
             }
+            //Shoot
+            //if (stage==4){
+            //    stage++;
+           // }
 
             //Park
-            if (stage == 5) {
-                if (ringNumber == 1) {
-                    smartOdometry.moveLeft(DistanceUnit.CM, 35, .2, .8, 2000);
-                    smartOdometry.moveBackward(DistanceUnit.CM, 127, .2, .8, 4000);
-                } else {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 127, .2, .8, 4000);
+            if (stage == 6) {
+                if (ringNumber == 4) {
+                    smartOdometry.moveBackward(DistanceUnit.CM, 65, .2, .8, 2300);
                 }
                 stage++;
             }
