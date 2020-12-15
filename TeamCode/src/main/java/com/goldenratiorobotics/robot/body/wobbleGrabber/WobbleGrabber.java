@@ -11,6 +11,10 @@ public class WobbleGrabber {
     private ServoNonContinuous pincher;
     private LimitSwitchREV limitOut, limitIn;
 
+    private double openPosition = .5;
+    private  double closedPosition= 0;
+
+
     public WobbleGrabber(HardwareMap hardwareMap) {
         arm = Motor.getInstance(hardwareMap, "arm");
         pincher = ServoNonContinuous.getInstance(hardwareMap, "pincher");
@@ -32,16 +36,16 @@ public class WobbleGrabber {
         pincher.setPosition(position);
     }
     public void pinch() {
-        pinchToPosition(0);
+        pinchToPosition(closedPosition);
     }
     public void release(){
-        pinchToPosition(.5);
+        pinchToPosition(openPosition);
     }
     public double getPincherPosition(){
         return pincher.getPosition();
     }
     public boolean isPinched() {
-        return getPincherPosition() >= 1;
+        return getPincherPosition() == closedPosition;
 
     }
 

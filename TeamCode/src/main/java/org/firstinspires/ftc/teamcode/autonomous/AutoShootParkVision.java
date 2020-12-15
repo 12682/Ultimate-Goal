@@ -121,7 +121,7 @@ public class AutoShootParkVision extends LinearOpMode {
             //close pincher and bring arm in
             if (stage == 5) {
                 st = System.currentTimeMillis();
-                wobbleGrabber.isPinched();
+                wobbleGrabber.pinch();
                 while (System.currentTimeMillis() - st < timeout) {
                     wobbleGrabber.runArmManual(.4);
                  }
