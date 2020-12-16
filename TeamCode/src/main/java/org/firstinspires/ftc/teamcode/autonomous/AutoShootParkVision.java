@@ -96,7 +96,7 @@ public class AutoShootParkVision extends LinearOpMode {
                     smartOdometry.moveForward(DistanceUnit.CM,45, .5, .8, 2700);
                 }
                 if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM,44, .5, .8, 3200);
+                    smartOdometry.moveForward(DistanceUnit.CM,50, .5, .8, 3400);
                 }
                 if (ringNumber == 4){
                     smartOdometry.moveForward(DistanceUnit.CM,145, .2, .8,4075);
@@ -112,14 +112,16 @@ public class AutoShootParkVision extends LinearOpMode {
                 if (ringNumber == 4) {
                     smartOdometry.moveLeft(DistanceUnit.CM, 90, .2, .5, 3000);
                 }
+                if (ringNumber == 1) {
+                    smartOdometry.moveLeft(DistanceUnit.CM,23,.2,.5,1200);
+                }
                 stage++;
             }
             //drop wobble goal
             if (stage == 4) {
                 st = System.currentTimeMillis();
                 while (System.currentTimeMillis() - st < timeout) {
-                    wobbleGrabber.runArmManual(-.4);
-                }
+                    wobbleGrabber.runArm(-.4); }
                 wobbleGrabber.runArm(0);
                 wobbleGrabber.release();
                 stage++;
@@ -127,11 +129,11 @@ public class AutoShootParkVision extends LinearOpMode {
             //close pincher and bring arm in
             if (stage == 5) {
                 st = System.currentTimeMillis();
-                wobbleGrabber.pinch();
                 while (System.currentTimeMillis() - st < timeout) {
                     wobbleGrabber.runArmManual(.4);
                  }
                 wobbleGrabber.runArm(0);
+                wobbleGrabber.pinch();
                 stage++;
             }
             //Shoot
@@ -142,7 +144,13 @@ public class AutoShootParkVision extends LinearOpMode {
             //Park
             if (stage == 6) {
                 if (ringNumber == 4) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 65, .2, .8, 2300);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2190);
+                }
+                if (ringNumber == 1) {
+                    smartOdometry.moveBackward(DistanceUnit.CM, 20, .2, .8, 1200);
+                }
+                if (ringNumber == 0) {
+                    smartOdometry.moveBackward(DistanceUnit.CM, 22, .2, .8, 1000);
                 }
                 stage++;
             }

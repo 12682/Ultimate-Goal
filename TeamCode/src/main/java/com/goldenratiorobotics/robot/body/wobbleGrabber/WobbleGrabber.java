@@ -12,7 +12,7 @@ public class WobbleGrabber {
     private LimitSwitchREV limitOut, limitIn;
 
     private double openPosition = .5;
-    private  double closedPosition= 0;
+    private double closedPosition= 0;
 
 
     public WobbleGrabber(HardwareMap hardwareMap) {
