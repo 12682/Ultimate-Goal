@@ -22,9 +22,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-@Autonomous(name="Auto Shoot Park Vision", group = "A. Autonomous")
+@Autonomous(name="Auto Shoot Vision Park", group = "A. Autonomous")
 //@Disabled
-public class AutoShootParkVision extends LinearOpMode {
+public class AutoShootVisionParkFull extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DriveTrain driveTrain;
     private OdometryUnit odometryUnit;
@@ -39,7 +39,7 @@ public class AutoShootParkVision extends LinearOpMode {
     long flipperTimeOut = 1000;
     long st = 0;
     OpenCvInternalCamera phoneCam;
-    AutoShootParkVision.SkystoneDeterminationPipeline pipeline;
+    AutoShootVisionParkFull.SkystoneDeterminationPipeline pipeline;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -51,7 +51,7 @@ public class AutoShootParkVision extends LinearOpMode {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new AutoShootParkVision.SkystoneDeterminationPipeline();
+        pipeline = new AutoShootVisionParkFull.SkystoneDeterminationPipeline();
         phoneCam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -82,14 +82,23 @@ public class AutoShootParkVision extends LinearOpMode {
             if (stage==0){
                 pipeline.getAnalysis();
                 ringNumber = pipeline.getRingNumber();
-                stage++;
+                stage = 4;
             }
             //move right to get out of the way of rings
             if (stage==1){
                     smartOdometry.moveRight(DistanceUnit.CM, 100, .2, .5, 1500);
                 stage++;
             }
-
+            //move forward to be paralell to shoot line
+            if (stage==2){
+                smartOdometry.moveForward(DistanceUnit.CM,45, .5, .8, 2700);
+                stage++;
+            }
+            //move left to shooting position
+            if (stage==3){
+                smartOdometry.moveLeft(DistanceUnit.CM, 90, .2, .5, 3000);
+                stage++;
+            }
             //Move forward to be parallel to target zone.
 
             if (stage==2){
@@ -136,7 +145,7 @@ public class AutoShootParkVision extends LinearOpMode {
                 wobbleGrabber.runArm(0);
                 wobbleGrabber.pinch();
                 wobbleGrabber.release();
-                stage=999;
+                stage++;
             }
             //Shoot
             if (stage==4){
@@ -255,7 +264,7 @@ public class AutoShootParkVision extends LinearOpMode {
         int avg1;
 
         // Volatile since accessed by OpMode thread w/o synchronization
-        private volatile AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.FOUR;
+        private volatile AutoShootVisionParkFull.SkystoneDeterminationPipeline.RingPosition position = AutoShootVisionParkFull.SkystoneDeterminationPipeline.RingPosition.FOUR;
 
         /*
          * This function takes the RGB frame, converts to YCrCb,
@@ -289,13 +298,13 @@ public class AutoShootParkVision extends LinearOpMode {
                     BLUE, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
-            position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
+            position = AutoShootVisionParkFull.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
             if(avg1 > FOUR_RING_THRESHOLD){
-                position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.FOUR;
+                position = AutoShootVisionParkFull.SkystoneDeterminationPipeline.RingPosition.FOUR;
             }else if (avg1 > ONE_RING_THRESHOLD){
-                position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.ONE;
+                position = AutoShootVisionParkFull.SkystoneDeterminationPipeline.RingPosition.ONE;
             }else{
-                position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.NONE;
+                position = AutoShootVisionParkFull.SkystoneDeterminationPipeline.RingPosition.NONE;
             }
 
             Imgproc.rectangle(
@@ -315,9 +324,9 @@ public class AutoShootParkVision extends LinearOpMode {
 
         public int getRingNumber(){
             int ringNum;
-            if (position == AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.FOUR){
+            if (position == AutoShootVisionParkFull.SkystoneDeterminationPipeline.RingPosition.FOUR){
                 ringNum = 4;
-            } else if (position == AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.ONE){
+            } else if (position == AutoShootVisionParkFull.SkystoneDeterminationPipeline.RingPosition.ONE){
                 ringNum = 1;
             } else {
                 ringNum =0;
