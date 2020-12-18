@@ -51,6 +51,7 @@ public class TestWobbleGrabber extends LinearOpMode {
             telemetry.addData("ArmSpeed",wobbleGrabber.getArmSpeed());
             telemetry.addData("limitIn",wobbleGrabber.isArmIn());
             telemetry.addData("limitOut",wobbleGrabber.isArmOut());
+            telemetry.addData("ArmPosition",wobbleGrabber.getArmPosition());
             telemetry.update();
             //endregion
         }

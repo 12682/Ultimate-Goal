@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Shooter {
     private Motor shooterMotor = null;
     private ServoNonContinuous flipper = null;
-    private double inPosition = 0.67;
+    private double inPosition = 0.45;
     private double neutralPosition = 0.92;
 
     public Shooter(HardwareMap hardwareMap) {
