@@ -30,7 +30,7 @@ public class AutoShootParkVision extends LinearOpMode {
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
     private Shooter        shooter     = null;
-    private double shooterSpeed        =.8;
+    private double shooterSpeed        =1;
     private WobbleGrabber wobbleGrabber = null;
     int ringNumber = 0;
     int stage = 0;
@@ -81,6 +81,7 @@ public class AutoShootParkVision extends LinearOpMode {
             //Count rings
             if (stage==0){
                 pipeline.getAnalysis();
+                wobbleGrabber.pinch();
                 ringNumber = pipeline.getRingNumber();
                 stage++;
             }
@@ -97,10 +98,10 @@ public class AutoShootParkVision extends LinearOpMode {
                     smartOdometry.moveForward(DistanceUnit.CM,45, .5, .8, 2700);
                 }
                 if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM,55, .5, .8, 4000);
+                    smartOdometry.moveForward(DistanceUnit.CM,55, .5, .8, 3400);
                 }
                 if (ringNumber == 4){
-                    smartOdometry.moveForward(DistanceUnit.CM,145, .2, .8,4075);
+                    smartOdometry.moveForward(DistanceUnit.CM,145, .2, .8,3950);
                 }
                 stage++;
             }
@@ -111,10 +112,10 @@ public class AutoShootParkVision extends LinearOpMode {
                 }
 
                 if (ringNumber == 4) {
-                    smartOdometry.moveLeft(DistanceUnit.CM, 90, .2, .5, 3000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 90, .2, .5,4500);
                 }
                 if (ringNumber == 1) {
-                    smartOdometry.moveLeft(DistanceUnit.CM,35,.2,.5,2000);
+                    smartOdometry.moveLeft(DistanceUnit.CM,35,.2,.5,1200);
                 }
                 stage++;
             }
@@ -136,10 +137,10 @@ public class AutoShootParkVision extends LinearOpMode {
                 wobbleGrabber.runArm(0);
                 wobbleGrabber.pinch();
                 wobbleGrabber.release();
-                stage=999;
+                stage++;
             }
             //Shoot
-            if (stage==4){
+            if (stage==44){
                 //start motor for shooting.
                 shooter.runShooter(shooterSpeed);
                 // wait loop for motor to come to speed. wait 3 sec
@@ -156,7 +157,7 @@ public class AutoShootParkVision extends LinearOpMode {
                 while (System.currentTimeMillis() - st < flipperTimeOut) {
                     shooter.neuterFlipper();
                 }
-                /*st = System.currentTimeMillis();
+                st = System.currentTimeMillis();
                 // Flip to shoot ring 2
                 while (System.currentTimeMillis() - st < flipperTimeOut) {
                     shooter.flipIn();
@@ -175,8 +176,8 @@ public class AutoShootParkVision extends LinearOpMode {
                 // return flipper to neuter position
                 while (System.currentTimeMillis() - st < flipperTimeOut) {
                     shooter.neuterFlipper();
-                }*/
-                stage=999;
+                }
+                stage++;
            }
 
             //Park
@@ -185,12 +186,12 @@ public class AutoShootParkVision extends LinearOpMode {
                     smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2190);
                 }
                 if (ringNumber == 1) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 20, .2, .8, 1800);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 36, .2, .8, 2170);
                 }
                 if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 2000);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 25, .2, .8, 100);
                 }
-                stage++;
+                stage=999;
             }
 
             //region telemetry
