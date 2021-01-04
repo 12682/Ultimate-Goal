@@ -87,7 +87,7 @@ public class AutoShootParkVision extends LinearOpMode {
             }
             //move right to get out of the way of rings
             if (stage==1){
-                    smartOdometry.moveRight(DistanceUnit.CM, 100, .2, .5, 1500);
+                    smartOdometry.moveRight(DistanceUnit.CM, 40, .2, .5, 2500);
                 stage++;
             }
 
@@ -95,15 +95,21 @@ public class AutoShootParkVision extends LinearOpMode {
 
             if (stage==2){
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM,45, .5, .8, 2700);
+                    smartOdometry.moveForward(DistanceUnit.CM,175, .5, .8, 10000);
+//                    If odometry doesn't work, use this for timeouts
+//                    st = System.currentTimeMillis();
+//                    while (System.currentTimeMillis() - st < 3000) {
+//                        driveTrain.moveForward(.4);
+//                    }
+//                    driveTrain.stop();
                 }
                 if (ringNumber == 1){
-                    smartOdometry.moveForward(DistanceUnit.CM,55, .5, .8, 3400);
+                    smartOdometry.moveForward(DistanceUnit.CM,75, .5, .8, 3400);
                 }
                 if (ringNumber == 4){
                     smartOdometry.moveForward(DistanceUnit.CM,145, .2, .8,3950);
                 }
-                stage++;
+                stage=999;
             }
             // move closer to the target square if needed. (0 rings and 4 rings)
             if (stage==3){

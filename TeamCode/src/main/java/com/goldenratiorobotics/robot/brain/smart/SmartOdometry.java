@@ -25,9 +25,9 @@ public class SmartOdometry {
         double speed = maxSpeed;
 
         double orientation = odometryUnit.returnOrientation();
-        double heading     = orientation + 90;
-        Point  startPos    = odometryUnit.returnPointUnits(distanceUnit);
-        Point  currentPos  = startPos;
+        double heading     = orientation - 90;
+        Point  startPos    = odometryUnit.returnPointUnits(distanceUnit).clone();
+        Point  currentPos  = startPos.clone();
         Point  endPos      = new Point(startPos.x + (distance * SmartMath.cos(heading)), startPos.y + (distance * SmartMath.sin(heading)));
 
         double distanceTraveled = 0;
@@ -35,7 +35,7 @@ public class SmartOdometry {
 
         driveTrain.moveForward(speed);
         while ((distanceTraveled < goalDistance) && (System.currentTimeMillis() - st < timeOut)) {
-            currentPos       = odometryUnit.returnPointUnits(distanceUnit);
+            currentPos       = odometryUnit.returnPointUnits(distanceUnit).clone();
             distanceTraveled = SmartMath.distanceFormula(currentPos, startPos);
 
             speed = maxSpeed + ((minSpeed - maxSpeed) * (distanceTraveled / goalDistance));
@@ -104,9 +104,9 @@ public class SmartOdometry {
         double speed = maxSpeed;
 
         double orientation = odometryUnit.returnOrientation();
-        double heading     = orientation - 90;
-        Point  startPos    = odometryUnit.returnPointUnits(distanceUnit);
-        Point  currentPos  = startPos;
+        double heading     = orientation + 90;
+        Point  startPos    = odometryUnit.returnPointUnits(distanceUnit).clone();
+        Point  currentPos  = startPos.clone();
         Point  endPos      = new Point(startPos.x + (distance * SmartMath.cos(heading)), startPos.y + (distance * SmartMath.sin(heading)));
 
         double distanceTraveled = 0;
@@ -114,7 +114,7 @@ public class SmartOdometry {
 
         driveTrain.moveBackward(speed);
         while ((distanceTraveled < goalDistance) && (System.currentTimeMillis() - st < timeOut)) {
-            currentPos       = odometryUnit.returnPointUnits(distanceUnit);
+            currentPos       = odometryUnit.returnPointUnits(distanceUnit).clone();
             distanceTraveled = SmartMath.distanceFormula(currentPos, startPos);
 
             speed = maxSpeed + ((minSpeed - maxSpeed) * (distanceTraveled / goalDistance));
@@ -180,10 +180,10 @@ public class SmartOdometry {
 
         double startDeg   = odometryUnit.returnOrientation();
         double currentDeg = startDeg;
-        double endDeg     = startDeg - degrees;
+        double endDeg     = startDeg + degrees;
 
         driveTrain.rotateRight(speed);
-        while ((currentDeg > endDeg) && (System.currentTimeMillis() - st < timeOut)) {
+        while ((currentDeg < endDeg) && (System.currentTimeMillis() - st < timeOut)) {
             currentDeg = odometryUnit.returnOrientation();
             speed      = maxSpeed + ((minSpeed - maxSpeed) * (Math.abs(currentDeg - startDeg) / Math.abs(endDeg - startDeg)));
 
@@ -224,10 +224,10 @@ public class SmartOdometry {
 
         double startDeg   = odometryUnit.returnOrientation();
         double currentDeg = startDeg;
-        double endDeg     = startDeg + degrees;
+        double endDeg     = startDeg - degrees;
 
         driveTrain.rotateLeft(speed);
-        while ((currentDeg < endDeg) && (System.currentTimeMillis() - st < timeOut)) {
+        while ((currentDeg > endDeg) && (System.currentTimeMillis() - st < timeOut)) {
             currentDeg = odometryUnit.returnOrientation();
             speed      = maxSpeed + ((minSpeed - maxSpeed) * (Math.abs(currentDeg - startDeg) / Math.abs(endDeg - startDeg)));
 

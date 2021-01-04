@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@TeleOp(name="Test OdometryForward", group="C. Tests System")
+@TeleOp(name="Test OdometryTurn", group="C. Tests System")
 //@Disabled
-public class TestOdometryForward extends LinearOpMode {
+public class TestOdometryTurn extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DriveTrain driveTrain;
     private OdometryUnit odometryUnit;
@@ -34,7 +34,7 @@ public class TestOdometryForward extends LinearOpMode {
         while (opModeIsActive()) {
 
            if (running){
-               smartOdometry.moveForward(DistanceUnit.CM,25,.3,.6,2000);
+               smartOdometry.rotateRight(90,.3,.6,5000);
            }
            running = false;
 

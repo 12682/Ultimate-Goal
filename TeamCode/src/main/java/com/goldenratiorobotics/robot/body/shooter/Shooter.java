@@ -46,4 +46,5 @@ public class Shooter {
         return getFlipperPosition()>=inPosition;
     }
 
+
 }
