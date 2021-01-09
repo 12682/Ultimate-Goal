@@ -22,9 +22,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-@Autonomous(name="Meet Three Auto", group = "A. Autonomous")
+@Autonomous(name="Auto Shoot Park Vision", group = "A. Autonomous")
 //@Disabled
-public class AutoShootParkVision extends LinearOpMode {
+public class MeetThreeAuto extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DriveTrain driveTrain;
     private OdometryUnit odometryUnit;
@@ -39,7 +39,7 @@ public class AutoShootParkVision extends LinearOpMode {
     long flipperTimeOut = 1000;
     long st = 0;
     OpenCvInternalCamera phoneCam;
-    AutoShootParkVision.SkystoneDeterminationPipeline pipeline;
+    MeetThreeAuto.SkystoneDeterminationPipeline pipeline;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -51,7 +51,7 @@ public class AutoShootParkVision extends LinearOpMode {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new AutoShootParkVision.SkystoneDeterminationPipeline();
+        pipeline = new MeetThreeAuto.SkystoneDeterminationPipeline();
         phoneCam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -87,7 +87,7 @@ public class AutoShootParkVision extends LinearOpMode {
             }
             //move right to get out of the way of rings
             if (stage==1){
-                    smartOdometry.moveRight(DistanceUnit.CM, 40, .2, .5, 3000);
+                    smartOdometry.moveRight(DistanceUnit.CM, 40, .2, .5, 2500);
                 stage++;
             }
 
@@ -95,7 +95,7 @@ public class AutoShootParkVision extends LinearOpMode {
 
             if (stage==2){
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM,175, .5, .8, 5500);
+                    smartOdometry.moveForward(DistanceUnit.CM,175, .5, .8, 10000);
 //                    If odometry doesn't work, use this for timeouts
 //                    st = System.currentTimeMillis();
 //                    while (System.currentTimeMillis() - st < 3000) {
@@ -136,19 +136,55 @@ public class AutoShootParkVision extends LinearOpMode {
             }
             //close pincher and bring arm in
             if (stage == 5) {
-                if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM,175,.2,.5,5500);
-                }
-
-//                st = System.currentTimeMillis();
-//                while (System.currentTimeMillis() - st < timeout) {
-//                    wobbleGrabber.runArmManual(.4);
-//                 }
-//                wobbleGrabber.runArm(0);
-//                wobbleGrabber.pinch();
-//                wobbleGrabber.release();
-//                stage++;
+                st = System.currentTimeMillis();
+                while (System.currentTimeMillis() - st < timeout) {
+                    wobbleGrabber.runArmManual(.4);
+                 }
+                wobbleGrabber.runArm(0);
+                wobbleGrabber.pinch();
+                wobbleGrabber.release();
+                stage++;
             }
+            //Shoot
+            if (stage==44){
+                //start motor for shooting.
+                shooter.runShooter(shooterSpeed);
+                // wait loop for motor to come to speed. wait 3 sec
+                st = System.currentTimeMillis();
+                while (System.currentTimeMillis() - st < 3000) {
+                }
+                st = System.currentTimeMillis();
+                // Flip to shoot ring 1
+                while (System.currentTimeMillis() - st < flipperTimeOut) {
+                    shooter.flipIn();
+                }
+                st = System.currentTimeMillis();
+                // return flipper to neuter position
+                while (System.currentTimeMillis() - st < flipperTimeOut) {
+                    shooter.neuterFlipper();
+                }
+                st = System.currentTimeMillis();
+                // Flip to shoot ring 2
+                while (System.currentTimeMillis() - st < flipperTimeOut) {
+                    shooter.flipIn();
+                }
+                st = System.currentTimeMillis();
+                // return flipper to neuter position
+                while (System.currentTimeMillis() - st < flipperTimeOut) {
+                    shooter.neuterFlipper();
+                }
+                st = System.currentTimeMillis();
+                // Flip to shoot ring 3
+                while (System.currentTimeMillis() - st < flipperTimeOut) {
+                    shooter.flipIn();
+                }
+                st = System.currentTimeMillis();
+                // return flipper to neuter position
+                while (System.currentTimeMillis() - st < flipperTimeOut) {
+                    shooter.neuterFlipper();
+                }
+                stage++;
+           }
 
             //Park
             if (stage == 6) {
@@ -159,11 +195,10 @@ public class AutoShootParkVision extends LinearOpMode {
                     smartOdometry.moveBackward(DistanceUnit.CM, 36, .2, .8, 2170);
                 }
                 if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 175, .2, .8, 5500);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 25, .2, .8, 100);
                 }
-                stage++;
+                stage=999;
             }
-
 
             //region telemetry
             telemetry.addData("Ring number =", + ringNumber);
@@ -227,7 +262,7 @@ public class AutoShootParkVision extends LinearOpMode {
         int avg1;
 
         // Volatile since accessed by OpMode thread w/o synchronization
-        private volatile AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.FOUR;
+        private volatile MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.FOUR;
 
         /*
          * This function takes the RGB frame, converts to YCrCb,
@@ -261,13 +296,13 @@ public class AutoShootParkVision extends LinearOpMode {
                     BLUE, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
-            position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
+            position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
             if(avg1 > FOUR_RING_THRESHOLD){
-                position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.FOUR;
+                position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.FOUR;
             }else if (avg1 > ONE_RING_THRESHOLD){
-                position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.ONE;
+                position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.ONE;
             }else{
-                position = AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.NONE;
+                position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.NONE;
             }
 
             Imgproc.rectangle(
@@ -287,9 +322,9 @@ public class AutoShootParkVision extends LinearOpMode {
 
         public int getRingNumber(){
             int ringNum;
-            if (position == AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.FOUR){
+            if (position == MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.FOUR){
                 ringNum = 4;
-            } else if (position == AutoShootParkVision.SkystoneDeterminationPipeline.RingPosition.ONE){
+            } else if (position == MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.ONE){
                 ringNum = 1;
             } else {
                 ringNum =0;
