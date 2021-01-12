@@ -7,13 +7,15 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Shooter {
     private Motor shooterMotor = null;
     private ServoNonContinuous flipper = null;
-    private double inPosition = .7;
-    private double neutralPosition = 0.92;
+    private double inPosition = .9;
+    private double neutralPosition = 0.6;
+//    private double inPosition = .7;
+//    private double neutralPosition = 0.92;
 
     public Shooter(HardwareMap hardwareMap) {
         shooterMotor = Motor.getInstance(hardwareMap,"shooterMotor");
         flipper      = ServoNonContinuous.getInstance(hardwareMap,"flipper");
-        shooterMotor.reverseDirection();
+//
 
     }
     public void runShooter(double speed) {

@@ -31,15 +31,15 @@ public class TestFlipper extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-           // if (gamepad1.right_bumper) {
-           //     position=Range.clip(position+0.1,0,1);
-          //  }
-           // if (gamepad1.left_bumper ) {
-           //     position=Range.clip(position-0.1,0,1);
-           // }
-        //&& !previousRightBumper
-            //&& !previousLeftBumper
-            position = (-gamepad1.left_stick_y+2)/1;
+            if (gamepad1.right_bumper) {
+                position=Range.clip(position+0.1,0,1);
+            }
+            if (gamepad1.left_bumper ) {
+                position=Range.clip(position-0.1,0,1);
+            }
+//        && !previousRightBumper
+//            && !previousLeftBumper
+//            position = (-gamepad1.left_stick_y+2)/1;
 
 
             shooter.moveFlipper(position);
