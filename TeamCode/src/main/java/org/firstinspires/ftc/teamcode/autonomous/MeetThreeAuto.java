@@ -22,7 +22,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-@Autonomous(name="Auto Shoot Park Vision", group = "A. Autonomous")
+@Autonomous(name="Meet Three Auto", group = "A. Autonomous")
 //@Disabled
 public class MeetThreeAuto extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
@@ -87,7 +87,8 @@ public class MeetThreeAuto extends LinearOpMode {
             }
             //move right to get out of the way of rings
             if (stage==1){
-                    smartOdometry.moveRight(DistanceUnit.CM, 40, .2, .5, 2500);
+                    smartOdometry.moveForward(DistanceUnit.CM,40,.5,.8,100);
+                    smartOdometry.moveRight(DistanceUnit.CM,60,.5,.8,3000);
                 stage++;
             }
 
@@ -95,13 +96,7 @@ public class MeetThreeAuto extends LinearOpMode {
 
             if (stage==2){
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM,175, .5, .8, 10000);
-//                    If odometry doesn't work, use this for timeouts
-//                    st = System.currentTimeMillis();
-//                    while (System.currentTimeMillis() - st < 3000) {
-//                        driveTrain.moveForward(.4);
-//                    }
-//                    driveTrain.stop();
+                    smartOdometry.moveForward(DistanceUnit.CM,175, .5, .8, 2200);
                 }
                 if (ringNumber == 1){
                     smartOdometry.moveForward(DistanceUnit.CM,75, .5, .8, 3400);
@@ -109,12 +104,12 @@ public class MeetThreeAuto extends LinearOpMode {
                 if (ringNumber == 4){
                     smartOdometry.moveForward(DistanceUnit.CM,145, .2, .8,3950);
                 }
-                stage=999;
+                stage++;
             }
             // move closer to the target square if needed. (0 rings and 4 rings)
             if (stage==3){
                 if (ringNumber == 0) {
-                    smartOdometry.moveLeft(DistanceUnit.CM, 90, .2, .5, 3000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 65, .2, .5, 3000);
                 }
 
                 if (ringNumber == 4) {
@@ -127,23 +122,26 @@ public class MeetThreeAuto extends LinearOpMode {
             }
             //drop wobble goal
             if (stage == 4) {
-                st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < timeout) {
-                    wobbleGrabber.runArm(-.4); }
-                wobbleGrabber.runArm(0);
+                wobbleGrabber.runArmManual(-.4);
                 wobbleGrabber.release();
+//                st = System.currentTimeMillis();
+//                while (System.currentTimeMillis() - st < timeout) {
+//                    wobbleGrabber.runArm(-.4); }
                 stage++;
             }
             //close pincher and bring arm in
             if (stage == 5) {
-                st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < timeout) {
-                    wobbleGrabber.runArmManual(.4);
-                 }
-                wobbleGrabber.runArm(0);
-                wobbleGrabber.pinch();
+                wobbleGrabber.runArmManual(.4);
                 wobbleGrabber.release();
-                stage++;
+
+//                st = System.currentTimeMillis();
+//                while (System.currentTimeMillis() - st < timeout) {
+//                    wobbleGrabber.runArmManual(.4);
+//                 }
+//                wobbleGrabber.runArm(0);
+//                wobbleGrabber.pinch();
+//                wobbleGrabber.release();
+                stage=999;
             }
             //Shoot
             if (stage==44){
@@ -197,7 +195,7 @@ public class MeetThreeAuto extends LinearOpMode {
                 if (ringNumber == 0) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 25, .2, .8, 100);
                 }
-                stage=999;
+                stage++;
             }
 
             //region telemetry
