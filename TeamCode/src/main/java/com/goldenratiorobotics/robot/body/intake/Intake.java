@@ -5,29 +5,33 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
     private Motor intakeMotor = null;
+    private Motor bottomIntakeMotor = null;
 
     public Intake(HardwareMap hardwareMap) {
         intakeMotor = Motor.getInstance(hardwareMap, "intakeMotor");
+        bottomIntakeMotor = Motor.getInstance(hardwareMap,"bottomIntakeMotor");
 
     }
 
     public void setSpeed(double speed) {
         intakeMotor.setSpeed(speed);
+        bottomIntakeMotor.setSpeed(-speed);
 
     }
     public void takeIn() {
-        setSpeed(-.8);
+        setSpeed(1);
 
     }
     public void takeOut() {
-        setSpeed(.75);
+        setSpeed(-.75);
     }
     public void stop() {
         setSpeed(0);
     }
 
-    public double getSpeed() {
-        return intakeMotor.getSpeed();
+    public double[] getSpeed() {
+        return new double[] {intakeMotor.getSpeed(), bottomIntakeMotor.getSpeed()};
+
 
     }
 

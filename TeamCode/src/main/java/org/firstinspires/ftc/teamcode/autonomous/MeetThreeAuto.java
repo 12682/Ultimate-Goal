@@ -122,7 +122,11 @@ public class MeetThreeAuto extends LinearOpMode {
             }
             //drop wobble goal
             if (stage == 4) {
-                wobbleGrabber.runArmManual(-.4);
+                wobbleGrabber.runArmManual(.4);
+                st=System.currentTimeMillis();
+                while (System.currentTimeMillis() -st < 1000){
+
+                }
                 wobbleGrabber.release();
 //                st = System.currentTimeMillis();
 //                while (System.currentTimeMillis() - st < timeout) {
@@ -131,7 +135,7 @@ public class MeetThreeAuto extends LinearOpMode {
             }
             //close pincher and bring arm in
             if (stage == 5) {
-                wobbleGrabber.runArmManual(.4);
+                wobbleGrabber.runArmManual(-.4);
                 wobbleGrabber.release();
 
 //                st = System.currentTimeMillis();
