@@ -22,15 +22,15 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-@Autonomous(name="Meet Three Auto", group = "A. Autonomous")
+@Autonomous(name="Meet Three Auto High Battery", group = "A. Autonomous")
 //@Disabled
-public class MeetThreeAuto extends LinearOpMode {
+public class MeetThreeAutoHighBattery extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DriveTrain driveTrain;
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
     private Shooter        shooter     = null;
-    private double shooterSpeed        =.75;
+    private double shooterSpeed        =.70;
     private WobbleGrabber wobbleGrabber = null;
     int ringNumber = 0;
     int stage = 0;
@@ -39,7 +39,7 @@ public class MeetThreeAuto extends LinearOpMode {
     long flipperTimeOut = 1000;
     long st = 0;
     OpenCvInternalCamera phoneCam;
-    MeetThreeAuto.SkystoneDeterminationPipeline pipeline;
+    MeetThreeAutoHighBattery.SkystoneDeterminationPipeline pipeline;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -51,7 +51,7 @@ public class MeetThreeAuto extends LinearOpMode {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new MeetThreeAuto.SkystoneDeterminationPipeline();
+        pipeline = new MeetThreeAutoHighBattery.SkystoneDeterminationPipeline();
         phoneCam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -159,8 +159,8 @@ public class MeetThreeAuto extends LinearOpMode {
                 }
 
                 if (ringNumber == 4) {
-                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.5,4500);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 60, .2, .5, 1800);
+                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,4500);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 60, .2, .6, 1800);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveForward(DistanceUnit.CM,65,.2,.5,3700);
@@ -278,7 +278,7 @@ public class MeetThreeAuto extends LinearOpMode {
         int avg1;
 
         // Volatile since accessed by OpMode thread w/o synchronization
-        private volatile MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.FOUR;
+        private volatile MeetThreeAutoHighBattery.SkystoneDeterminationPipeline.RingPosition position = MeetThreeAutoHighBattery.SkystoneDeterminationPipeline.RingPosition.FOUR;
 
         /*
          * This function takes the RGB frame, converts to YCrCb,
@@ -312,13 +312,13 @@ public class MeetThreeAuto extends LinearOpMode {
                     BLUE, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
-            position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
+            position = MeetThreeAutoHighBattery.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
             if(avg1 > FOUR_RING_THRESHOLD){
-                position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.FOUR;
+                position = MeetThreeAutoHighBattery.SkystoneDeterminationPipeline.RingPosition.FOUR;
             }else if (avg1 > ONE_RING_THRESHOLD){
-                position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.ONE;
+                position = MeetThreeAutoHighBattery.SkystoneDeterminationPipeline.RingPosition.ONE;
             }else{
-                position = MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.NONE;
+                position = MeetThreeAutoHighBattery.SkystoneDeterminationPipeline.RingPosition.NONE;
             }
 
             Imgproc.rectangle(
@@ -338,9 +338,9 @@ public class MeetThreeAuto extends LinearOpMode {
 
         public int getRingNumber(){
             int ringNum;
-            if (position == MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.FOUR){
+            if (position == MeetThreeAutoHighBattery.SkystoneDeterminationPipeline.RingPosition.FOUR){
                 ringNum = 4;
-            } else if (position == MeetThreeAuto.SkystoneDeterminationPipeline.RingPosition.ONE){
+            } else if (position == MeetThreeAutoHighBattery.SkystoneDeterminationPipeline.RingPosition.ONE){
                 ringNum = 1;
             } else {
                 ringNum =0;
