@@ -82,8 +82,7 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
             if (stage==0){
                 pipeline.getAnalysis();
                 wobbleGrabber.pinch();
-               // ringNumber = pipeline.getRingNumber();
-                ringNumber=0;
+                ringNumber = pipeline.getRingNumber();
                 stage++;
             }
             //move forward slightly and right to get out of the way of rings and to be in front of shooting location.
