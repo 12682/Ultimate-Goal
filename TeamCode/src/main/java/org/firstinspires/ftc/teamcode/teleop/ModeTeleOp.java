@@ -30,7 +30,7 @@ public class ModeTeleOp extends LinearOpMode {
     private double moveX         = 0;
     private double speedModifier = 0;
     private boolean previousGamepad2Y = false;
-    private boolean previousGamepad2LB = false;2
+    private boolean previousGamepad2LB = false;
     private boolean previousGamepad2RB = false;
     private double shooterSpeed        =.75;
     private boolean isShooting         = false;
