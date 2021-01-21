@@ -30,9 +30,9 @@ public class ModeTeleOp extends LinearOpMode {
     private double moveX         = 0;
     private double speedModifier = 0;
     private boolean previousGamepad2Y = false;
-    private boolean previousGamepad2LB = false;
+    private boolean previousGamepad2LB = false;2
     private boolean previousGamepad2RB = false;
-    private double shooterSpeed        =.82;
+    private double shooterSpeed        =.75;
     private boolean isShooting         = false;
     private boolean previousGamepad2A   = false;
 
@@ -57,7 +57,7 @@ public class ModeTeleOp extends LinearOpMode {
                 speedModifier = gamepad1.right_trigger - gamepad1.left_trigger;
             }
 
-            moveX  = ControlProcessor.squareRoot(gamepad1.left_stick_x * speedModifier);
+            moveX  = ControlProcessor.squareRoot(gamepad1.left_stick_x * speedModifier  );
             moveY = ControlProcessor.cubeRoot(-gamepad1.left_stick_y * speedModifier);
             rotX = ControlProcessor.cubeRoot(gamepad1.right_stick_x * speedModifier);
 
@@ -93,7 +93,7 @@ public class ModeTeleOp extends LinearOpMode {
 
             shooterSpeed = gamepad2.right_trigger;
 
-            shooter.runShooter(shooterSpeed);
+            shooter.runShooter(Range.clip(shooterSpeed, 0, .8));
 
             if (gamepad2.dpad_up){
                 wobbleGrabber.runArmManual(.4);

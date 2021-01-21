@@ -83,7 +83,7 @@ public class MeetThreeAuto extends LinearOpMode {
                 pipeline.getAnalysis();
                 wobbleGrabber.pinch();
                // ringNumber = pipeline.getRingNumber();
-                ringNumber=0;
+                ringNumber=0  ;
                 stage++;
             }
             //move forward slightly and right to get out of the way of rings and to be in front of shooting location.
