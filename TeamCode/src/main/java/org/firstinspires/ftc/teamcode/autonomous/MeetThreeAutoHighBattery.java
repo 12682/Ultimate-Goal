@@ -97,7 +97,7 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
             //Move forward to be parallel to shooting position.
 
             if (stage==2){
-                    smartOdometry.moveForward(DistanceUnit.CM,170, .5, .8, 1100);
+                    smartOdometry.moveForward(DistanceUnit.CM,170, .5, .8, 1300);
                 st=System.currentTimeMillis();
                 while (System.currentTimeMillis() -st < 1000){
                 }
