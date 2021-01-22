@@ -253,7 +253,7 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(150,95);
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(140,15);
 
         static final int REGION_WIDTH = 35;
         static final int REGION_HEIGHT = 25;
