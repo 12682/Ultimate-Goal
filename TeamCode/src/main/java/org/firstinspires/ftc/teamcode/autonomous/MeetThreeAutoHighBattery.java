@@ -97,7 +97,7 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
             //Move forward to be parallel to shooting position.
 
             if (stage==2){
-                    smartOdometry.moveForward(DistanceUnit.CM,160, .5, .8, 1200);
+                    smartOdometry.moveForward(DistanceUnit.CM,160, .5, .8, 1325);
                 st=System.currentTimeMillis();
                 while (System.currentTimeMillis() -st < 1000){
                 }
@@ -105,7 +105,7 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
             }
           //  Move left into shooting location
             if (stage==3){
-                    smartOdometry.moveLeft(DistanceUnit.CM, 18, .2, .5, 3000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 32, .2, .5, 3000);
 
                 stage++;
             }
@@ -159,9 +159,10 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
 
                 if (ringNumber == 4) {
                     smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,4000);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 30, .2, .5, 1000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 60, .2, .5, 1000);
                 }
                 if (ringNumber == 1) {
+                    smartOdometry.moveRight(DistanceUnit.CM,15, .2,.6,4000);
                     smartOdometry.moveForward(DistanceUnit.CM,65,.2,.5,3200);
                     //smartOdometry.moveRight(DistanceUnit.CM, 1, .2, .5,500 );
                 }
@@ -199,13 +200,13 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
             //Park
             if (stage == 8) {
                 if (ringNumber == 4) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2600);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2300);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
                 }
                 if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 400);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 350);
                 }
                 stage++;
             }

@@ -96,11 +96,11 @@ public class ModeTeleOp extends LinearOpMode {
             shooter.runShooter(Range.clip(shooterSpeed, 0, .70));
 
             if (gamepad2.dpad_up){
-                wobbleGrabber.runArmManual(.4);
+                wobbleGrabber.runArmManual(- .4);
             } else if (gamepad2.dpad_down) {
-                wobbleGrabber.runArmManual(-.4);
+                wobbleGrabber.runArmManual(.4);
             } else {
-                wobbleGrabber.runArmManual(-gamepad2.right_stick_y);
+                wobbleGrabber.runArmManual(gamepad2.right_stick_y);
             }
 
 
