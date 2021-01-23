@@ -93,7 +93,7 @@ public class ModeTeleOp extends LinearOpMode {
 
             shooterSpeed = gamepad2.right_trigger;
 
-            shooter.runShooter(Range.clip(shooterSpeed, 0, .8));
+            shooter.runShooter(Range.clip(shooterSpeed, 0, .70));
 
             if (gamepad2.dpad_up){
                 wobbleGrabber.runArmManual(.4);

@@ -30,7 +30,7 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
     private Shooter        shooter     = null;
-    private double shooterSpeed        =.70;
+    private double shooterSpeed        =.65;
     private WobbleGrabber wobbleGrabber = null;
     int ringNumber = 0;
     int stage = 0;
@@ -97,7 +97,7 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
             //Move forward to be parallel to shooting position.
 
             if (stage==2){
-                    smartOdometry.moveForward(DistanceUnit.CM,170, .5, .8, 1300);
+                    smartOdometry.moveForward(DistanceUnit.CM,160, .5, .8, 1200);
                 st=System.currentTimeMillis();
                 while (System.currentTimeMillis() -st < 1000){
                 }
@@ -105,7 +105,7 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
             }
           //  Move left into shooting location
             if (stage==3){
-                    smartOdometry.moveLeft(DistanceUnit.CM, 33, .2, .5, 3000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 18, .2, .5, 3000);
 
                 stage++;
             }
@@ -154,63 +154,58 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
             if (stage==5) {
                 if (ringNumber == 0) {
                     smartOdometry.moveForward(DistanceUnit.CM, 70, .2, .5, 2100);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 40, .2, .5, 4000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 45, .2, .5, 4000);
                 }
 
                 if (ringNumber == 4) {
-                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,4500);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 60, .2, .6, 1800);
+                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,4000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 30, .2, .5, 1000);
                 }
                 if (ringNumber == 1) {
-                    smartOdometry.moveForward(DistanceUnit.CM,65,.2,.5,3700);
-                    smartOdometry.moveRight(DistanceUnit.CM, 10, .2, .5,500 );
+                    smartOdometry.moveForward(DistanceUnit.CM,65,.2,.5,3200);
+                    //smartOdometry.moveRight(DistanceUnit.CM, 1, .2, .5,500 );
                 }
-                stage++ ;
+                stage++;
             }
 
-            //drop wobble goal
+            //drop wobble goal and release
             if (stage == 6) {
-                wobbleGrabber.runArmManual(.6);
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 1700){
-
+                while (System.currentTimeMillis() -st < 2000){
+                    wobbleGrabber.runArmManual(.6);
+                    wobbleGrabber.pinch();
+                }
+               wobbleGrabber.runArmManual(0);
+                st=System.currentTimeMillis();
+                while (System.currentTimeMillis() -st < 500){
                 }
                 wobbleGrabber.release();
-//                st = System.currentTimeMillis();
-//                while (System.currentTimeMillis() - st < timeout) {
-//                    wobbleGrabber.runArm(-.4); }
+                st=System.currentTimeMillis();
+                while (System.currentTimeMillis() -st < 500){
+                }
+
                 stage++;
             }
             //close pincher and bring arm in
             if (stage == 7) {
-                wobbleGrabber.release();
                 wobbleGrabber.runArmManual(-.7);
                 st = System.currentTimeMillis();
                 while (System.currentTimeMillis() - st < 2000) {
                 }
-
-//                st = System.currentTimeMillis();
-//                while (System.currentTimeMillis() - st < timeout) {
-//                    wobbleGrabber.runArmManual(.4);
-//                 }
-//                wobbleGrabber.runArm(0);
-//                wobbleGrabber.pinch();
-//                wobbleGrabber.release();
+                wobbleGrabber.runArm(0);
+                wobbleGrabber.pinch();
                 stage++;
             }
-            //Shoot
-
-
             //Park
             if (stage == 8) {
                 if (ringNumber == 4) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2300);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2600);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
                 }
                 if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 100);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 400);
                 }
                 stage++;
             }
