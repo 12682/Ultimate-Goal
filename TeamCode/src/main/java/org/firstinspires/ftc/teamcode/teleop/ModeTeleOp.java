@@ -35,8 +35,8 @@ public class ModeTeleOp extends LinearOpMode {
     private double shooterSpeed        =.75;
     private boolean isShooting         = false;
     private boolean previousGamepad2A   = false;
-
-
+    private boolean previousRightBumper = false;
+    private boolean previousLeftBumper = false;
 
     @Override
     public void runOpMode() {
@@ -93,7 +93,7 @@ public class ModeTeleOp extends LinearOpMode {
 
             //shooterSpeed = gamepad2.right_trigger;
             //if right trigger is pulled start shooter
-            if (gamepad2.right_trigger >.5) {
+            if (gamepad2.right_trigger > .5) {
                 shooter.runShooter(Range.clip(shooterSpeed, 0, 1));
             }
             //shooter.runShooter(Range.clip(shooterSpeed, 0, .70));
@@ -103,14 +103,15 @@ public class ModeTeleOp extends LinearOpMode {
                 shooter.runShooter(0);
             }
 
-            //if right bumper is pressed, increase speed by .5
-            if (gamepad2.right_bumper=true) {
+            //if right bumper is pressed, increase speed by .05
+            if (gamepad2.right_bumper == true && previousRightBumper == false) {
                 shooterSpeed = shooterSpeed + .05;
+
                shooter.runShooter(Range.clip(shooterSpeed, 0, 1));
             }
 
-            //if left bumper is pressed, decrease speed by .5
-            if (gamepad2.left_bumper=true) {
+            //if left bumper is pressed, decrease speed by .05
+            if (gamepad2.left_bumper==true && previousLeftBumper == false) {
                 shooterSpeed = shooterSpeed - .05;
                 shooter.runShooter(Range.clip(shooterSpeed, 0, 1));
             }
@@ -137,7 +138,8 @@ public class ModeTeleOp extends LinearOpMode {
             previousGamepad2LB = gamepad2.left_bumper;
             previousGamepad2RB = gamepad2.right_bumper;
             previousGamepad2A  =gamepad2.a;
-
+            previousRightBumper = gamepad2.right_bumper;
+            previousLeftBumper = gamepad2.left_bumper;
 
             //region telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
