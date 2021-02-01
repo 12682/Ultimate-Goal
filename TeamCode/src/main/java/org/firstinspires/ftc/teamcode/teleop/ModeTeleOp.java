@@ -85,15 +85,35 @@ public class ModeTeleOp extends LinearOpMode {
             } else{
                 intake.stop();
             }
-            if (gamepad2.left_stick_y>.2){
+            if (gamepad2.left_stick_y >.2){
                 shooter.flipIn();
             } else {
                 shooter.neuterFlipper();
             }
 
-            shooterSpeed = gamepad2.right_trigger;
+            //shooterSpeed = gamepad2.right_trigger;
+            //if right trigger is pulled start shooter
+            if (gamepad2.right_trigger >.5) {
+                shooter.runShooter(Range.clip(shooterSpeed, 0, 1));
+            }
+            //shooter.runShooter(Range.clip(shooterSpeed, 0, .70));
 
-            shooter.runShooter(Range.clip(shooterSpeed, 0, .70));
+            //if left trigger is puled, stop shooter
+            if (gamepad2.left_trigger >.5) {
+                shooter.runShooter(0);
+            }
+
+            //if right bumper is pressed, increase speed by .5
+            if (gamepad2.right_bumper=true) {
+                shooterSpeed = shooterSpeed + .05;
+               shooter.runShooter(Range.clip(shooterSpeed, 0, 1));
+            }
+
+            //if left bumper is pressed, decrease speed by .5
+            if (gamepad2.left_bumper=true) {
+                shooterSpeed = shooterSpeed - .05;
+                shooter.runShooter(Range.clip(shooterSpeed, 0, 1));
+            }
 
             if (gamepad2.dpad_up){
                 wobbleGrabber.runArmManual(- .4);
