@@ -251,13 +251,92 @@ public class MeetFourAuto extends LinearOpMode {
                 wobbleGrabber.runArm(0);
                 stage++;
             }
+
             //grab wobble grab
             if (stage == 13)  {
                 wobbleGrabber.pinch();
                 stage++;
             }
-            //
-            if (stage == 14)
+
+            //slightly lift the arm
+            if (stage == 14) {
+                wobbleGrabber.runArmManual(-.7);
+                st = System.currentTimeMillis();
+                while (System.currentTimeMillis() - st < 500) {
+                }
+                wobbleGrabber.runArm(0);
+                stage++;
+            }
+
+            //move forward twords target position
+            if (stage == 15) {
+                if (ringNumber == 4) {
+                    smartOdometry.moveForward(DistanceUnit.CM, 60, .2, .8, 2300);
+                }
+                if (ringNumber == 1) {
+                    smartOdometry.moveForward(DistanceUnit.CM, 50, .2, .8, 1900);
+                }
+                if (ringNumber == 0) {
+                    smartOdometry.moveForward(DistanceUnit.CM, 35, .2, .8, 350);
+                }
+                stage++;
+            }
+
+            //move left to target position
+            if (stage == 16) {
+                if (ringNumber == 4) {
+                    smartOdometry.moveRight(DistanceUnit.CM, 60, .2, .8, 2300);
+                }
+                if (ringNumber == 1) {
+                    smartOdometry.moveRight(DistanceUnit.CM, 50, .2, .8, 1900);
+                }
+                if (ringNumber == 0) {
+                    smartOdometry.moveRight(DistanceUnit.CM, 35, .2, .8, 350);
+                }
+                stage++;
+            }
+
+            //drops wobble goal and release
+            if (stage == 17) {
+                st=System.currentTimeMillis();
+                while (System.currentTimeMillis() -st < 2000){
+                    wobbleGrabber.runArmManual(.6);
+                    wobbleGrabber.pinch();
+                }
+                wobbleGrabber.runArmManual(0);
+                st=System.currentTimeMillis();
+                while (System.currentTimeMillis() -st < 500){
+                }
+                wobbleGrabber.release();
+                st=System.currentTimeMillis();
+                while (System.currentTimeMillis() -st < 500){
+            }
+
+            //closes grabber and brings arm in
+            if (stage == 18) {
+                wobbleGrabber.runArmManual(-.7);
+                st = System.currentTimeMillis();
+                while (System.currentTimeMillis() - st < 2000) {
+                }
+                wobbleGrabber.runArm(0);
+                wobbleGrabber.pinch();
+                stage++;
+            }
+
+            //park
+            if (stage == 18) {
+                if (ringNumber == 4) {
+                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2300);
+                }
+                if (ringNumber == 1) {
+                    smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
+                }
+                if (ringNumber == 0) {
+                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 350);
+                }
+                stage++;
+            }
+
             //region telemetry
             telemetry.addData("Ring number =", + ringNumber);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
