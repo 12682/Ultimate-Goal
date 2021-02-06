@@ -30,7 +30,7 @@ public class MeetFourAuto extends LinearOpMode {
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
     private Shooter        shooter     = null;
-    private double shooterSpeed        =.65;
+    private double shooterSpeed        =.7;
     private WobbleGrabber wobbleGrabber = null;
     int ringNumber = 0;
     int stage = 0;
@@ -97,7 +97,7 @@ public class MeetFourAuto extends LinearOpMode {
             //Move forward to be parallel to shooting position.
 
             if (stage==2){
-                    smartOdometry.moveForward(DistanceUnit.CM,160, .5, .8, 1325);
+                    smartOdometry.moveForward(DistanceUnit.CM,160, .5, .8, 1495);
                 st=System.currentTimeMillis();
                 while (System.currentTimeMillis() -st < 1000){
                 }
@@ -153,17 +153,17 @@ public class MeetFourAuto extends LinearOpMode {
             //move to delivery zone.
             if (stage==5) {
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM, 70, .2, .5, 2100);
+                    smartOdometry.moveForward(DistanceUnit.CM, 70, .2, .5, 1500);
                     smartOdometry.moveLeft(DistanceUnit.CM, 45, .2, .5, 4000);
                 }
 
                 if (ringNumber == 4) {
-                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,4000);
+                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,3300);
                     smartOdometry.moveLeft(DistanceUnit.CM, 60, .2, .5, 1000);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveRight(DistanceUnit.CM,15, .2,.6,4000);
-                    smartOdometry.moveForward(DistanceUnit.CM,65,.2,.5,3200);
+                    smartOdometry.moveForward(DistanceUnit.CM,65,.2,.5,2800);
                     //smartOdometry.moveRight(DistanceUnit.CM, 1, .2, .5,500 );
                 }
                 stage++;
@@ -178,13 +178,13 @@ public class MeetFourAuto extends LinearOpMode {
                 }
                wobbleGrabber.runArmManual(0);
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 500){
+                while (System.currentTimeMillis() -st < 250){
                 }
                 wobbleGrabber.release();
                 st=System.currentTimeMillis();
                 while (System.currentTimeMillis() -st < 500){
                 }
-
+                wobbleGrabber.release();
                 stage++;
             }
             //close pincher and bring arm in
@@ -206,9 +206,9 @@ public class MeetFourAuto extends LinearOpMode {
                     smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
                 }
                 if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 350);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 20, .2, .8, 200);
                 }
-                stage++;
+                stage=999;
             }
             //strafe right
             if (stage == 9) {
@@ -219,7 +219,7 @@ public class MeetFourAuto extends LinearOpMode {
                     smartOdometry.moveRight(DistanceUnit.CM, 50, .2, .8, 1900);
                 }
                 if (ringNumber == 0) {
-                    smartOdometry.moveRight(DistanceUnit.CM, 35, .2, .8, 350);
+                    smartOdometry.moveRight(DistanceUnit.CM, 35, .2, .8, 1350);
                 }
                 stage++;
             }
@@ -232,7 +232,7 @@ public class MeetFourAuto extends LinearOpMode {
                     smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
                 }
                 if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 350);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 1400);
                 }
                 stage++;
             }
