@@ -298,18 +298,19 @@ public class MeetFourAuto extends LinearOpMode {
 
             //drops wobble goal and release
             if (stage == 17) {
-                st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 2000){
+                st = System.currentTimeMillis();
+                while (System.currentTimeMillis() - st < 2000) {
                     wobbleGrabber.runArmManual(.6);
                     wobbleGrabber.pinch();
                 }
                 wobbleGrabber.runArmManual(0);
-                st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 500){
+                st = System.currentTimeMillis();
+                while (System.currentTimeMillis() - st < 500) {
                 }
                 wobbleGrabber.release();
-                st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 500){
+                st = System.currentTimeMillis();
+                while (System.currentTimeMillis() - st < 500) {
+                }
             }
 
             //closes grabber and brings arm in
