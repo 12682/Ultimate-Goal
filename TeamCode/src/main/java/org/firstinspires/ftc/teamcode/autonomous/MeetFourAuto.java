@@ -30,7 +30,7 @@ public class MeetFourAuto extends LinearOpMode {
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
     private Shooter        shooter     = null;
-    private double shooterSpeed        =.7;
+    private double shooterSpeed        =.9;
     private WobbleGrabber wobbleGrabber = null;
     int ringNumber = 0;
     int stage = 0;
@@ -182,9 +182,9 @@ public class MeetFourAuto extends LinearOpMode {
                 }
                 wobbleGrabber.release();
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 500){
+                while (System.currentTimeMillis() -st < 1500){
                 }
-                wobbleGrabber.release();
+//                wobbleGrabber.release();
                 stage++;
             }
             //close pincher and bring arm in

@@ -33,6 +33,7 @@ public class TestWobbleGrabber extends LinearOpMode {
 
             if (gamepad1.right_bumper && !previousRightBumper) {
                 position=Range.clip(position+0.1,0,1);
+
             }
             if (gamepad1.left_bumper && !previousLeftBumper) {
                 position=Range.clip(position-0.1,0,1);
