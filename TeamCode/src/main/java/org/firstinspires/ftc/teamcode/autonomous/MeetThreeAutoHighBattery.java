@@ -69,6 +69,8 @@ public class MeetThreeAutoHighBattery extends LinearOpMode {
         });
 
         telemetry.addData("Status", "Initialized");
+        telemetry.addData("Analysis", pipeline.getAnalysis());
+        telemetry.addData("Position", pipeline.position);
         telemetry.update();
 
         waitForStart();
