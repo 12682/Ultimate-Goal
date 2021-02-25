@@ -30,7 +30,7 @@ public class MeetFourAuto extends LinearOpMode {
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
     private Shooter        shooter     = null;
-    private double shooterSpeed        =.9;
+    private double shooterSpeed        =.7;
     private WobbleGrabber wobbleGrabber = null;
     int ringNumber = 0;
     int stage = 0;
@@ -97,7 +97,7 @@ public class MeetFourAuto extends LinearOpMode {
 
             //Move forward to be parallel to shooting position.
             if (stage==2){
-                    smartOdometry.moveForward(DistanceUnit.CM,160, .5, .8, 1200);
+                    smartOdometry.moveForward(DistanceUnit.CM,290, .5, .8, 1600);
                 st=System.currentTimeMillis();
                 while (System.currentTimeMillis() -st < 1000){
                 }
@@ -105,7 +105,8 @@ public class MeetFourAuto extends LinearOpMode {
             }
           //  Move left into shooting location
             if (stage==3){
-                    smartOdometry.moveLeft(DistanceUnit.CM, 50, .2, .5, 3500);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 50, .2, .5, 3600);
+
 
                 stage++;
             }
@@ -148,7 +149,7 @@ public class MeetFourAuto extends LinearOpMode {
                     shooter.neuterFlipper();
                 }
                 shooter.runShooter(0);
-                stage++;
+                stage=999;
             }
             //move to delivery zone.
             if (stage==5) {
