@@ -22,9 +22,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-@Autonomous(name="Meet Four Auto", group = "A. Autonomous")
+@Autonomous(name="Two Wobbles", group = "A. Autonomous")
 //@Disabled
-public class MeetFourAuto extends LinearOpMode {
+public class TwoWobbles extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DriveTrain driveTrain;
     private OdometryUnit odometryUnit;
@@ -40,7 +40,7 @@ public class MeetFourAuto extends LinearOpMode {
     long flipperTimeOut = 1000;
     long st = 0;
     OpenCvInternalCamera phoneCam;
-    MeetFourAuto.SkystoneDeterminationPipeline pipeline;
+    TwoWobbles.SkystoneDeterminationPipeline pipeline;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -52,7 +52,7 @@ public class MeetFourAuto extends LinearOpMode {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        pipeline = new MeetFourAuto.SkystoneDeterminationPipeline();
+        pipeline = new TwoWobbles.SkystoneDeterminationPipeline();
         phoneCam.setPipeline(pipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -86,6 +86,7 @@ public class MeetFourAuto extends LinearOpMode {
                 wobbleGrabber.pinch();
                 ringNumber = pipeline.getRingNumber();
                 telemetry.addData("i",shooter.getSpeed());
+                shooter.runShooter(shooterSpeed);
                 stage++;
             }
             //move forward slightly and right to get out of the way of rings and to be in front of shooting location.
@@ -101,7 +102,7 @@ public class MeetFourAuto extends LinearOpMode {
             if (stage==2){
                     smartOdometry.moveForward(DistanceUnit.CM,258, .5, .8, 1350);
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 1000){
+                while (System.currentTimeMillis() -st < 500){
                 }
                 stage++;
             }
@@ -115,11 +116,11 @@ public class MeetFourAuto extends LinearOpMode {
             //Shooting
             if (stage==4) {
                 //start motor for shooting.
-                shooter.runShooter(shooterSpeed);
+              //  shooter.runShooter(shooterSpeed);
                 // wait loop for motor to come to speed. wait 3 sec
-                st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 3000) {
-                }
+//                st = System.currentTimeMillis();
+//                while (System.currentTimeMillis() - st < 3000) {
+//                }
                 st = System.currentTimeMillis();
                 // Flip to shoot ring 1
                 while (System.currentTimeMillis() - st < flipperTimeOut) {
@@ -161,8 +162,8 @@ public class MeetFourAuto extends LinearOpMode {
                 }
 
                 if (ringNumber == 4) {
-                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,3800);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 67, .2, .5, 700);
+                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,3400);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 62, .2, .5, 700);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveRight(DistanceUnit.CM,20, .2,.6,2500);
@@ -186,7 +187,7 @@ public class MeetFourAuto extends LinearOpMode {
                 }
                 wobbleGrabber.release();
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 1500){
+                while (System.currentTimeMillis() -st < 750){
                 }
 //                wobbleGrabber.release();
                 stage++;
@@ -195,11 +196,11 @@ public class MeetFourAuto extends LinearOpMode {
             if (stage == 7) {
                 wobbleGrabber.runArmManual(-.7);
                 st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 2000) {
+                while (System.currentTimeMillis() - st < 750) {
                 }
                 wobbleGrabber.runArm(0);
                 wobbleGrabber.pinch();
-                stage++;
+                stage=9;
             }
             //Park
             if (stage == 8) {
@@ -212,12 +213,12 @@ public class MeetFourAuto extends LinearOpMode {
                 if (ringNumber == 0) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 20, .2, .8, 200);
                 }
-                stage=999;
+                stage++;
             }
             //strafe right
             if (stage == 9) {
                 if (ringNumber == 4) {
-                    smartOdometry.moveRight(DistanceUnit.CM, 60, .2, .8, 2300);
+                    smartOdometry.moveRight(DistanceUnit.CM, 135, .2, .8, 2300);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveRight(DistanceUnit.CM, 50, .2, .8, 1900);
@@ -231,7 +232,7 @@ public class MeetFourAuto extends LinearOpMode {
             //move backwards to wobble goal
             if (stage == 10) {
                 if (ringNumber == 4) {
-                smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2300);
+                smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 3900);
             }
                 if (ringNumber == 1) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
@@ -239,7 +240,7 @@ public class MeetFourAuto extends LinearOpMode {
                 if (ringNumber == 0) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 1400);
                 }
-                stage++;
+                stage=999;
             }
             //open the pincher
             if (stage == 11) {
@@ -251,7 +252,7 @@ public class MeetFourAuto extends LinearOpMode {
             if (stage == 12) {
                 wobbleGrabber.runArmManual(.7);
                 st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 2000) {
+                while (System.currentTimeMillis() - st < 1000) {
                 }
                 wobbleGrabber.runArm(0);
                 stage++;
@@ -405,7 +406,7 @@ public class MeetFourAuto extends LinearOpMode {
         int avg1;
 
         // Volatile since accessed by OpMode thread w/o synchronization
-        private volatile MeetFourAuto.SkystoneDeterminationPipeline.RingPosition position = MeetFourAuto.SkystoneDeterminationPipeline.RingPosition.FOUR;
+        private volatile TwoWobbles.SkystoneDeterminationPipeline.RingPosition position = TwoWobbles.SkystoneDeterminationPipeline.RingPosition.FOUR;
 
         /*
          * This function takes the RGB frame, converts to YCrCb,
@@ -439,13 +440,13 @@ public class MeetFourAuto extends LinearOpMode {
                     BLUE, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
-            position = MeetFourAuto.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
+            position = TwoWobbles.SkystoneDeterminationPipeline.RingPosition.FOUR; // Record our analysis
             if(avg1 > FOUR_RING_THRESHOLD){
-                position = MeetFourAuto.SkystoneDeterminationPipeline.RingPosition.FOUR;
+                position = TwoWobbles.SkystoneDeterminationPipeline.RingPosition.FOUR;
             }else if (avg1 > ONE_RING_THRESHOLD){
-                position = MeetFourAuto.SkystoneDeterminationPipeline.RingPosition.ONE;
+                position = TwoWobbles.SkystoneDeterminationPipeline.RingPosition.ONE;
             }else{
-                position = MeetFourAuto.SkystoneDeterminationPipeline.RingPosition.NONE;
+                position = TwoWobbles.SkystoneDeterminationPipeline.RingPosition.NONE;
             }
 
             Imgproc.rectangle(
@@ -465,9 +466,9 @@ public class MeetFourAuto extends LinearOpMode {
 
         public int getRingNumber(){
             int ringNum;
-            if (position == MeetFourAuto.SkystoneDeterminationPipeline.RingPosition.FOUR){
+            if (position == TwoWobbles.SkystoneDeterminationPipeline.RingPosition.FOUR){
                 ringNum = 4;
-            } else if (position == MeetFourAuto.SkystoneDeterminationPipeline.RingPosition.ONE){
+            } else if (position == TwoWobbles.SkystoneDeterminationPipeline.RingPosition.ONE){
                 ringNum = 1;
             } else {
                 ringNum =0;
