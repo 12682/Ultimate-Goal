@@ -199,7 +199,7 @@ public class TwoWobbles extends LinearOpMode {
                 while (System.currentTimeMillis() - st < 750) {
                 }
                 wobbleGrabber.runArm(0);
-                wobbleGrabber.pinch();
+               // wobbleGrabber.pinch();
                 stage=9;
             }
             //Park
@@ -218,7 +218,7 @@ public class TwoWobbles extends LinearOpMode {
             //strafe right
             if (stage == 9) {
                 if (ringNumber == 4) {
-                    smartOdometry.moveRight(DistanceUnit.CM, 135, .2, .8, 2300);
+                    smartOdometry.moveRight(DistanceUnit.CM, 141, .2, .8, 2300);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveRight(DistanceUnit.CM, 50, .2, .8, 1900);
@@ -232,7 +232,7 @@ public class TwoWobbles extends LinearOpMode {
             //move backwards to wobble goal
             if (stage == 10) {
                 if (ringNumber == 4) {
-                smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 3900);
+                smartOdometry.moveBackward(DistanceUnit.CM, 60, .5, .8, 3500);
             }
                 if (ringNumber == 1) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
@@ -240,7 +240,7 @@ public class TwoWobbles extends LinearOpMode {
                 if (ringNumber == 0) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 1400);
                 }
-                stage=999;
+                stage= 12;
             }
             //open the pincher
             if (stage == 11) {
@@ -261,7 +261,7 @@ public class TwoWobbles extends LinearOpMode {
             //grab wobble grab
             if (stage == 13)  {
                 wobbleGrabber.pinch();
-                stage++;
+                stage=999;
             }
 
             //slightly lift the arm

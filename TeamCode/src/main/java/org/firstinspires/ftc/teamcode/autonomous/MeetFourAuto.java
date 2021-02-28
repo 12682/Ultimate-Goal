@@ -30,11 +30,10 @@ public class MeetFourAuto extends LinearOpMode {
     private OdometryUnit odometryUnit;
     private SmartOdometry smartOdometry;
     private Shooter        shooter     = null;
-    private double shooterSpeed        =.65;
+    private double shooterSpeed        =.7;
     private WobbleGrabber wobbleGrabber = null;
     int ringNumber = 0;
     int stage = 0;
-    int i = 1;
     int endLoop = 0;
     long timeout = 2000;
     long flipperTimeOut = 1000;
@@ -85,7 +84,6 @@ public class MeetFourAuto extends LinearOpMode {
                 pipeline.getAnalysis();
                 wobbleGrabber.pinch();
                 ringNumber = pipeline.getRingNumber();
-                telemetry.addData("i",shooter.getSpeed());
                 stage++;
             }
             //move forward slightly and right to get out of the way of rings and to be in front of shooting location.
@@ -93,13 +91,13 @@ public class MeetFourAuto extends LinearOpMode {
                     smartOdometry.moveForward(DistanceUnit.CM,40,.5,.8,50);
                 while (System.currentTimeMillis() -st < 500){
                 }
-                    smartOdometry.moveRight(DistanceUnit.CM,79,.5,.8,3200);
+                    smartOdometry.moveRight(DistanceUnit.CM,79,.5,.8,3000);
                 stage++;
             }
 
             //Move forward to be parallel to shooting position.
             if (stage==2){
-                    smartOdometry.moveForward(DistanceUnit.CM,258, .5, .8, 1350);
+                    smartOdometry.moveForward(DistanceUnit.CM,290, .5, .8, 1600);
                 st=System.currentTimeMillis();
                 while (System.currentTimeMillis() -st < 1000){
                 }
@@ -107,8 +105,8 @@ public class MeetFourAuto extends LinearOpMode {
             }
           //  Move left into shooting location
             if (stage==3){
-                    smartOdometry.moveLeft(DistanceUnit.CM, 70, .2, .5, 5400);
-                telemetry.addData("1",shooter.getSpeed());
+                    smartOdometry.moveLeft(DistanceUnit.CM, 50, .2, .5, 3600);
+
 
                 stage++;
             }
@@ -151,7 +149,7 @@ public class MeetFourAuto extends LinearOpMode {
                     shooter.neuterFlipper();
                 }
                 shooter.runShooter(0);
-                stage++;
+                stage=999;
             }
             //move to delivery zone.
             if (stage==5) {
@@ -162,13 +160,12 @@ public class MeetFourAuto extends LinearOpMode {
 
                 if (ringNumber == 4) {
                     smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,3800);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 67, .2, .5, 700);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 60, .2, .5, 500);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveRight(DistanceUnit.CM,20, .2,.6,2500);
                     smartOdometry.moveForward(DistanceUnit.CM,65,.2,.5,4000);
                     //smartOdometry.moveRight(DistanceUnit.CM, 1, .2, .5,500 );
-                    telemetry.addData("i",shooter.getSpeed());
                 }
                 stage++;
             }
@@ -212,7 +209,7 @@ public class MeetFourAuto extends LinearOpMode {
                 if (ringNumber == 0) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 20, .2, .8, 200);
                 }
-                stage=999;
+                stage++;
             }
             //strafe right
             if (stage == 9) {
@@ -225,13 +222,12 @@ public class MeetFourAuto extends LinearOpMode {
                 if (ringNumber == 0) {
                     smartOdometry.moveRight(DistanceUnit.CM, 35, .2, .8, 1350);
                 }
-                telemetry.addData("thisistelemetry3",shooter.getSpeed());
                 stage++;
             }
             //move backwards to wobble goal
             if (stage == 10) {
                 if (ringNumber == 4) {
-                smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2300);
+                smartOdometry.moveBackward(DistanceUnit.CM, 160, .2, .8, 5000);
             }
                 if (ringNumber == 1) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
@@ -381,7 +377,7 @@ public class MeetFourAuto extends LinearOpMode {
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(95,13);
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(125,23);
 
         static final int REGION_WIDTH = 35;
         static final int REGION_HEIGHT = 25;
