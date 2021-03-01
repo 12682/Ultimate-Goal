@@ -177,7 +177,7 @@ public class TwoWobbles extends LinearOpMode {
             //drop wobble goal and release
             if (stage == 6) {
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 1500){
+                while (System.currentTimeMillis() -st < 1000){
                     wobbleGrabber.runArmManual(.6);
                     wobbleGrabber.pinch();
                 }
@@ -190,33 +190,12 @@ public class TwoWobbles extends LinearOpMode {
                 while (System.currentTimeMillis() -st < 750){
                 }
 //                wobbleGrabber.release();
-                stage=8;
-            }
-            //close pincher and bring arm in
-            if (stage == 7) {
-                wobbleGrabber.runArmManual(-.7);
-                st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 750) {
-                }
-                wobbleGrabber.runArm(0);
-               // wobbleGrabber.pinch();
-                stage=9;
-            }
-            //Park
-            if (stage == 8) {
-                if (ringNumber == 4) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2500);
-                }
-                if (ringNumber == 1) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1700);
-                }
-                if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 20, .2, .8, 200);
-                }
                 stage++;
             }
-            //strafe right
-            if (stage == 9) {
+            //close pincher and bring arm in
+
+
+            if (stage == 7) {
                 if (ringNumber == 4) {
                     smartOdometry.moveRight(DistanceUnit.CM, 141, .2, .8, 2300);
                 }
@@ -230,45 +209,34 @@ public class TwoWobbles extends LinearOpMode {
                 stage++;
             }
             //move backwards to wobble goal
-            if (stage == 10) {
+            if (stage == 8) {
                 if (ringNumber == 4) {
                 smartOdometry.moveBackward(DistanceUnit.CM, 60, .5, .8, 3500);
             }
                 if (ringNumber == 1) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1900);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 50, .5, .8, 1900);
                 }
                 if (ringNumber == 0) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 1400);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 35, .5, .8, 1400);
                 }
                 stage++;
             }
             //strafe into wobble goal
-            if (stage == 11) {
-                smartOdometry.moveLeft(DistanceUnit.CM, 8, .2, .8, 500);
+            if (stage == 9) {
+                smartOdometry.moveLeft(DistanceUnit.CM, 10, .2, .8, 1000);
                 stage++;
             }
-
-            //put the arm down
-            if (stage == 12) {
-                wobbleGrabber.runArmManual(.7);
-                st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 1000) {
-                }
-                wobbleGrabber.runArm(0);
-                stage++;
-            }
-
             //grab wobble grab
-            if (stage == 13)  {
+            if (stage == 10)  {
                 wobbleGrabber.pinch();
                 stage++;
             }
 
             //slightly lift the arm
-            if (stage == 14) {
+            if (stage == 11) {
                 wobbleGrabber.runArmManual(-.7);
                 st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 500) {
+                while (System.currentTimeMillis() - st < 5000) {
                 }
                 wobbleGrabber.runArm(0);
                 stage=999;
@@ -305,7 +273,7 @@ public class TwoWobbles extends LinearOpMode {
             //drops wobble goal and release
             if (stage == 17) {
                 st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 2000) {
+                while (System.currentTimeMillis() - st < 1000) {
                     wobbleGrabber.runArmManual(.6);
                     wobbleGrabber.pinch();
                 }
