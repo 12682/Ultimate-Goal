@@ -177,7 +177,7 @@ public class TwoWobbles extends LinearOpMode {
             //drop wobble goal and release
             if (stage == 6) {
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 2000){
+                while (System.currentTimeMillis() -st < 1500){
                     wobbleGrabber.runArmManual(.6);
                     wobbleGrabber.pinch();
                 }
@@ -190,7 +190,7 @@ public class TwoWobbles extends LinearOpMode {
                 while (System.currentTimeMillis() -st < 750){
                 }
 //                wobbleGrabber.release();
-                stage++;
+                stage=8;
             }
             //close pincher and bring arm in
             if (stage == 7) {
@@ -240,11 +240,11 @@ public class TwoWobbles extends LinearOpMode {
                 if (ringNumber == 0) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 35, .2, .8, 1400);
                 }
-                stage= 12;
+                stage++;
             }
-            //open the pincher
+            //strafe into wobble goal
             if (stage == 11) {
-                wobbleGrabber.release();
+                smartOdometry.moveLeft(DistanceUnit.CM, 8, .2, .8, 500);
                 stage++;
             }
 
@@ -261,7 +261,7 @@ public class TwoWobbles extends LinearOpMode {
             //grab wobble grab
             if (stage == 13)  {
                 wobbleGrabber.pinch();
-                stage=999;
+                stage++;
             }
 
             //slightly lift the arm
@@ -271,7 +271,7 @@ public class TwoWobbles extends LinearOpMode {
                 while (System.currentTimeMillis() - st < 500) {
                 }
                 wobbleGrabber.runArm(0);
-                stage++;
+                stage=999;
             }
 
             //move forward twords target position
@@ -346,6 +346,7 @@ public class TwoWobbles extends LinearOpMode {
 
             //region telemetry
             telemetry.addData("Ring number =", + ringNumber);
+            telemetry.update();
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Vertical Left Position", odometryUnit.returnVL());
             telemetry.addData("Vertical Right Position", odometryUnit.returnVR());
