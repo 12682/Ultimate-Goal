@@ -236,9 +236,10 @@ public class TwoWobbles extends LinearOpMode {
             if (stage == 11) {
                 wobbleGrabber.runArmManual(-.7);
                 st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 5000) {
+                while (System.currentTimeMillis() - st < 2000) {
                 }
                 wobbleGrabber.runArm(0);
+                wobbleGrabber.pinch();
                 stage=999;
             }
 
