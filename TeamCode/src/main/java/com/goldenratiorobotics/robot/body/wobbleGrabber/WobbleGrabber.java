@@ -55,9 +55,9 @@ public class WobbleGrabber {
     }
     public void runArm (double speed) {
         if (isArmIn()){
-            runArmManual(Range.clip(speed,-1,0));
+            runArmManual(Range.clip(speed,3,1));
         } else if (isArmOut()){
-            runArmManual(Range.clip(speed,0,1));
+            runArmManual(Range.clip(speed,-3,-1));
         } else {
             runArmManual(speed);
         }

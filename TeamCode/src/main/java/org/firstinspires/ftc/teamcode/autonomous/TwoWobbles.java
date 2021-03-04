@@ -108,7 +108,7 @@ public class TwoWobbles extends LinearOpMode {
             }
           //  Move left into shooting location
             if (stage==3){
-                    smartOdometry.moveLeft(DistanceUnit.CM, 70, .2, .5, 5400);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 70, .5, .8, 5400);
                 telemetry.addData("1",shooter.getSpeed());
 
                 stage++;
@@ -162,8 +162,8 @@ public class TwoWobbles extends LinearOpMode {
                 }
 
                 if (ringNumber == 4) {
-                    smartOdometry.moveForward(DistanceUnit.CM,200,.2,.6,3400);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 62, .2, .5, 700);
+                    smartOdometry.moveForward(DistanceUnit.CM,200,.3,.6,3400);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 39, .3, .6, 700);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveRight(DistanceUnit.CM,20, .2,.6,2500);
@@ -177,27 +177,27 @@ public class TwoWobbles extends LinearOpMode {
             //drop wobble goal and release
             if (stage == 6) {
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 1000){
+                while (System.currentTimeMillis() -st < 500){
                     wobbleGrabber.runArmManual(.6);
                     wobbleGrabber.pinch();
                 }
-               wobbleGrabber.runArmManual(0);
+                wobbleGrabber.runArmManual(-.6);
                 st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 250){
+                while (System.currentTimeMillis() -st < 500){
+                }
+                // wobbleGrabber.release();
+                st=System.currentTimeMillis();
+                while (System.currentTimeMillis() -st < 1000){
                 }
                 wobbleGrabber.release();
-                st=System.currentTimeMillis();
-                while (System.currentTimeMillis() -st < 750){
-                }
-//                wobbleGrabber.release();
                 stage++;
             }
             //close pincher and bring arm in
 
-
+            //move right to line up with wobble goal
             if (stage == 7) {
                 if (ringNumber == 4) {
-                    smartOdometry.moveRight(DistanceUnit.CM, 141, .2, .8, 2300);
+                    smartOdometry.moveRight(DistanceUnit.CM, 450, .5, .8, 2500);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveRight(DistanceUnit.CM, 50, .2, .8, 1900);
@@ -211,7 +211,7 @@ public class TwoWobbles extends LinearOpMode {
             //move backwards to wobble goal
             if (stage == 8) {
                 if (ringNumber == 4) {
-                smartOdometry.moveBackward(DistanceUnit.CM, 60, .5, .8, 3500);
+                smartOdometry.moveBackward(DistanceUnit.CM, 52, .5, .9, 3700);
             }
                 if (ringNumber == 1) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 50, .5, .8, 1900);
@@ -223,7 +223,7 @@ public class TwoWobbles extends LinearOpMode {
             }
             //strafe into wobble goal
             if (stage == 9) {
-                smartOdometry.moveLeft(DistanceUnit.CM, 10, .2, .8, 1000);
+                smartOdometry.moveLeft(DistanceUnit.CM, 50, .2, .8, 1000);
                 stage++;
             }
             //grab wobble grab
@@ -234,19 +234,20 @@ public class TwoWobbles extends LinearOpMode {
 
             //slightly lift the arm
             if (stage == 11) {
-                wobbleGrabber.runArmManual(-.7);
+                wobbleGrabber.pinch();
+                wobbleGrabber.runArmManual(.6);
                 st = System.currentTimeMillis();
-                while (System.currentTimeMillis() - st < 2000) {
+                while (System.currentTimeMillis() - st < 2300) {
                 }
                 wobbleGrabber.runArm(0);
-                wobbleGrabber.pinch();
-                stage=999;
+
+                stage++;
             }
 
-            //move forward twords target position
+            //move forward t0 target position
             if (stage == 15) {
                 if (ringNumber == 4) {
-                    smartOdometry.moveForward(DistanceUnit.CM, 60, .2, .8, 2300);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 70, .5, .8, 3700);
                 }
                 if (ringNumber == 1) {
                     smartOdometry.moveForward(DistanceUnit.CM, 50, .2, .8, 1900);
@@ -268,7 +269,7 @@ public class TwoWobbles extends LinearOpMode {
                 if (ringNumber == 0) {
                     smartOdometry.moveRight(DistanceUnit.CM, 35, .2, .8, 350);
                 }
-                stage++;
+                stage=999;
             }
 
             //drops wobble goal and release
@@ -286,6 +287,7 @@ public class TwoWobbles extends LinearOpMode {
                 st = System.currentTimeMillis();
                 while (System.currentTimeMillis() - st < 500) {
                 }
+                stage++;
             }
 
             //closes grabber and brings arm in
