@@ -91,7 +91,7 @@ public class MeetFourAuto extends LinearOpMode {
                     smartOdometry.moveForward(DistanceUnit.CM,40,.5,.8,50);
                 while (System.currentTimeMillis() -st < 500){
                 }
-                    smartOdometry.moveRight(DistanceUnit.CM,79,.5,.8,3000);
+                    smartOdometry.moveRight(DistanceUnit.CM,79,.5,.8,1750);
                 stage++;
             }
 
@@ -104,7 +104,7 @@ public class MeetFourAuto extends LinearOpMode {
             }
           //  Move left into shooting location
             if (stage==3){
-                smartOdometry.moveLeft(DistanceUnit.CM, 65, .3, .8, 5750);
+                smartOdometry.moveLeft(DistanceUnit.CM, 65, .3, .8, 1600);
 
 
                 stage++;
@@ -153,17 +153,17 @@ public class MeetFourAuto extends LinearOpMode {
             //move to delivery zone.
             if (stage==5) {
                 if (ringNumber == 0) {
-                    smartOdometry.moveForward(DistanceUnit.CM, 90, .2, .5, 1500);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 15, .2, .5, 2000);
+                    smartOdometry.moveForward(DistanceUnit.CM, 90, .2, .5, 1000);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 15, .2, .5, 1000);
                 }
 
                 if (ringNumber == 4) {
-                    smartOdometry.moveForward(DistanceUnit.CM,200,.3,.6,3400);
-                    smartOdometry.moveLeft(DistanceUnit.CM, 25, .3, .6, 1500);
+                    smartOdometry.moveForward(DistanceUnit.CM,200,.3,.6,2900);
+                    smartOdometry.moveLeft(DistanceUnit.CM, 25, .3, .6, 700);
                 }
                 if (ringNumber == 1) {
-                    smartOdometry.moveRight(DistanceUnit.CM,42, .3,.6,3400);
-                    smartOdometry.moveForward(DistanceUnit.CM,45,.3,.6,3000);
+                    smartOdometry.moveRight(DistanceUnit.CM,42, .3,.6,1000);
+                    smartOdometry.moveForward(DistanceUnit.CM,45,.3,.6,1800);
                     //smartOdometry.moveRight(DistanceUnit.CM, 1, .2, .5,500 );
                     telemetry.addData("i",shooter.getSpeed());
                 }
@@ -201,10 +201,10 @@ public class MeetFourAuto extends LinearOpMode {
             //Park
             if (stage == 8) {
                 if (ringNumber == 4) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2800);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 60, .2, .8, 2200);
                 }
                 if (ringNumber == 1) {
-                    smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1700);
+                    smartOdometry.moveBackward(DistanceUnit.CM, 50, .2, .8, 1200);
                 }
                 if (ringNumber == 0) {
                     smartOdometry.moveBackward(DistanceUnit.CM, 20, .2, .8, 200);
